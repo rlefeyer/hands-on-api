@@ -5,7 +5,7 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
+  Delete, Version,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -77,6 +77,15 @@ export class OrdersController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved menus for the order.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   findMenus(@Param('id') id: string) {
+    return this.ordersService.findMenus(id);
+  }
+  @Version('2')
+  @Get(':id/items')
+  @ApiOperation({ summary: 'Retrieve items for a specific order' })
+  @ApiParam({ name: 'id', description: 'The ID of the order to retrieve menus for' })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved items for the order.' })
+  @ApiResponse({ status: 404, description: 'Order not found.' })
+  findItems(@Param('id') id: string) {
     return this.ordersService.findMenus(id);
   }
 }
