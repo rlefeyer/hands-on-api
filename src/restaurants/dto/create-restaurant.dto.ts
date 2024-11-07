@@ -12,6 +12,10 @@ export class CreateRestaurantDto {
     @IsString()
     description: string;
 
+    @ApiProperty({example: 'fast-food'})
+    @IsString()
+    categorie: string;
+
     @ApiProperty({example: '5 rue de la paix'})
     @IsString()
     adresse: string;

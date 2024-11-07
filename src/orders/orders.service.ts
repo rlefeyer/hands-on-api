@@ -13,6 +13,11 @@ export class OrdersService {
   }
 
   findOne(id: number) {
+    return `This action returns a #${id} order. Warning, this route is depecrated`;
+  }
+
+
+  findOneItems(id: number) {
     return `This action returns a #${id} order`;
   }
 

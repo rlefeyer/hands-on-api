@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import {ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Order} from "./entities/order.entity";
+import {Menu} from "../menus/entities/menu.entity";
 
 @ApiTags('Orders')
 @Controller('orders')
@@ -23,14 +24,34 @@ export class OrdersController {
   @ApiResponse({status: 200, description: 'The records has been successfully returned.', type: [Order]})
   findAll() {
     return this.ordersService.findAll();
-  }
+  };
 
   @Get(':id')
+  @ApiOperation({ deprecated: true })
   @ApiResponse({status: 200, description: 'The record has been successfully returned.', type: Order})
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
   }
 
+  @Get('/v2/:id')
+  @ApiResponse({status: 200, description: 'The record has been successfully returned.', type: Order})
+  findOneV2(@Param('id') id: string) {
+    return this.ordersService.findOne(+id);
+  }
+
+  @Get(':id/menus')
+  @ApiOperation({ deprecated: true })
+  @ApiResponse({ status: 200, description: 'The record has been successfully returned.', type: [Menu] })
+  findMenusById(@Param('id') id: string) {
+    return this.ordersService.findOne(+id)
+  }
+
+  @Get(':id/menusV2')
+  @ApiResponse({ status: 200, description: 'The record has been successfully returned.', type: [Menu] })
+  findItemsById(@Param('id') id: string) {
+    return this.ordersService.findOne(+id)
+  }
+  
   @Patch(':id')
     @ApiResponse({status: 200, description: 'The record has been successfully updated.', type: Order})
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {

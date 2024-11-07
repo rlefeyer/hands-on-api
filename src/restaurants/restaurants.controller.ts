@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import {ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiQuery, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Restaurant} from "./entities/restaurant.entity";
 
 @ApiTags('Restaurants')
@@ -19,8 +19,12 @@ export class RestaurantsController {
   }
 
   @Get()
-    @ApiResponse({status: 200, description: 'The records has been successfully returned', type: [Restaurant]})
-  findAll() {
+  @ApiResponse({status: 200, description: 'The records has been successfully returned', type: [Restaurant]})
+  @ApiQuery({name: 'filter', required: false, type: String, example: 'fast-food'})
+  @ApiQuery({name: 'sort', required: false, type: String, description: 'default: asc', example: 'asc', enum: ['asc', 'desc']})
+  @ApiQuery({name: 'limit', required: false, type: Number, description: 'default: 20', example: 10})
+  @ApiQuery({name: 'page', required: false, type: Number,  description: 'default: 20', example: 2})
+  findAll(@Query() query: { filter?: string; sort?: string; limit?: number; page?: number } = {sort: 'asc', limit: 20, page: 1}) {
     return this.restaurantsService.findAll();
   }
 

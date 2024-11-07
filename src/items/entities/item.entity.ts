@@ -1,8 +1,9 @@
-import {Restaurant} from "../../restaurants/entities/restaurant.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
+import {Restaurant} from "../../restaurants/entities/restaurant.entity";
 
-export class Menu {
+export class Item {
+
     id: string;
 
     @ApiProperty({example: 'MaxiBestOf'})

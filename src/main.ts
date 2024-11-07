@@ -12,6 +12,7 @@ async function bootstrap() {
     .addTag('Users')
     .addTag('Restaurants')
     .addTag('Menus')
+    .addTag('Items')
     .addTag('Orders')
     .build();
 
