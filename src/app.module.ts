@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { MenusModule } from './menus/menus.module';
 import { OrdersModule } from './orders/orders.module';
+import {OrdersModuleV2} from "./orders/versions/v2/orders.v2.modules";
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { OrdersModule } from './orders/orders.module';
     //   entities: ['dist/**/*.entity.js'],
     //   synchronize: true,
     // }),
-    UsersModule, RestaurantsModule, MenusModule, OrdersModule
+    UsersModule, RestaurantsModule, MenusModule, OrdersModule, OrdersModuleV2
   ],
   controllers: [AppController],
   providers: [AppService],
