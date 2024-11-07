@@ -17,8 +17,16 @@ export class RestaurantsService {
     return newRestaurant;
   }
 
-  findAll(): Restaurant[] {
-    return this.restaurants;
+  findAll(name?: string, adresse?: string, limit = 100): Restaurant[] {
+    let filteredRestaurants = this.restaurants;
+    if (name || adresse) {
+      filteredRestaurants = this.restaurants.filter(
+        (restaurant) =>
+          (!name || restaurant.nom.includes(name)) &&
+          (!adresse || restaurant.adresse.includes(adresse)),
+      );
+    }
+    return limit ? filteredRestaurants.slice(0, limit) : filteredRestaurants;
   }
 
   findOne(id: string): Restaurant {

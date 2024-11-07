@@ -7,7 +7,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
@@ -80,7 +86,20 @@ export class RestaurantsController {
   @Get()
   @ApiOperation({
     summary: 'Get all restaurants',
-    description: 'Retrieves all restaurants.',
+    description:
+      'Retrieves all restaurants. You can filter by name or address.',
+  })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter restaurants by name',
+    schema: { type: 'string' },
+  })
+  @ApiQuery({
+    name: 'adresse',
+    required: false,
+    description: 'Filter restaurants by address',
+    schema: { type: 'string' },
   })
   @ApiResponse({
     status: 200,
@@ -122,8 +141,8 @@ export class RestaurantsController {
       },
     },
   })
-  findAll() {
-    return this.restaurantsService.findAll();
+  findAll(@Param('name') name?: string, @Param('adresse') adresse?: string) {
+    return this.restaurantsService.findAll(name, adresse);
   }
 
   @Get(':id')
