@@ -56,4 +56,12 @@ export class OrdersService {
   findOneMenu(id: string) {
     return this.findOne(id).menus;
   }
+
+  findAllItems() {
+    const allItems = this.orders.flatMap((order) => order.items);
+    if (allItems.length === 0) {
+      throw new NotFoundException('No items found');
+    }
+    return allItems;
+  }
 }

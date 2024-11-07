@@ -20,7 +20,7 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
-@Controller('users')
+@Controller('v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

@@ -21,15 +21,14 @@ import { Order } from './entities/order.entity';
 import { OrdersService } from './orders.service';
 
 @ApiTags('orders')
-@Controller('v1/orders')
-export class OrdersController {
+@Controller('v2/orders')
+export class OrdersControllerV2 {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
   @ApiOperation({
     summary: 'Create a new order',
     description: 'Creates a new order with the given details.',
-    deprecated: true,
   })
   @ApiBody({
     type: CreateOrderDto,
@@ -38,7 +37,7 @@ export class OrdersController {
       validOrder: {
         summary: 'A valid order',
         value: {
-          menus: [
+          items: [
             { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
             { menuId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
           ],
@@ -102,7 +101,6 @@ export class OrdersController {
   @ApiOperation({
     summary: 'Get all orders',
     description: 'Retrieves all orders.',
-    deprecated: true,
   })
   @ApiResponse({
     status: 200,
@@ -135,15 +133,14 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @Get('menus')
+  @Get('items')
   @ApiOperation({
-    summary: 'Get all order menus',
-    description: 'Retrieves all menus from all orders.',
-    deprecated: true,
+    summary: 'Get all order items',
+    description: 'Retrieves all items from all orders.',
   })
   @ApiResponse({
     status: 200,
-    description: 'Menus successfully retrieved',
+    description: 'Items successfully retrieved',
     schema: {
       example: [
         { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
@@ -153,17 +150,16 @@ export class OrdersController {
   })
   @ApiResponse({
     status: 404,
-    description: 'No menus found',
+    description: 'No items found',
   })
-  findAllMenus() {
-    return this.ordersService.findAllMenus();
+  findAllItems() {
+    return this.ordersService.findAllItems();
   }
 
   @Get(':id')
   @ApiOperation({
     summary: 'Get a specific order by id',
     description: 'Retrieves an order by its unique identifier.',
-    deprecated: true,
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({
@@ -176,12 +172,11 @@ export class OrdersController {
     return this.ordersService.findOne(id);
   }
 
-  @Get(':id/menus')
+  @Get(':id/items')
   @ApiOperation({
     summary: 'Get a specific menu from an order',
     description:
       'Retrieves a specific menu from an order by its unique identifier.',
-    deprecated: true,
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({
@@ -200,7 +195,6 @@ export class OrdersController {
   @ApiOperation({
     summary: 'Update an order',
     description: 'Updates an existing order by its unique identifier.',
-    deprecated: true,
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({
@@ -242,7 +236,6 @@ export class OrdersController {
   @ApiOperation({
     summary: 'Delete an order',
     description: 'Deletes an existing order by its unique identifier.',
-    deprecated: true,
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({

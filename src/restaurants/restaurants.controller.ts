@@ -14,7 +14,7 @@ import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantsService } from './restaurants.service';
 
 @ApiTags('restaurants')
-@Controller('restaurants')
+@Controller('v1/restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
