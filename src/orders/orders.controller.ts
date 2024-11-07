@@ -72,7 +72,8 @@ export class OrdersController {
   }
 
   @Get(':id/menus')
-  @ApiOperation({ summary: 'Retrieve menus for a specific order' })
+
+  @ApiOperation({ summary: 'Retrieve menus for a specific order', deprecated: true })
   @ApiParam({ name: 'id', description: 'The ID of the order to retrieve menus for' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved menus for the order.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
