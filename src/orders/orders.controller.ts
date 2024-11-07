@@ -44,7 +44,7 @@ export class OrdersController {
   @ApiResponse({ status: 200, description: 'The order with the specified ID.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+    return this.ordersService.findOne(id);
   }
 
   @Patch(':id')
@@ -56,7 +56,7 @@ export class OrdersController {
   })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+    return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')
@@ -68,6 +68,15 @@ export class OrdersController {
   })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+    return this.ordersService.remove(id);
+  }
+
+  @Get(':id/menus')
+  @ApiOperation({ summary: 'Retrieve menus for a specific order' })
+  @ApiParam({ name: 'id', description: 'The ID of the order to retrieve menus for' })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved menus for the order.' })
+  @ApiResponse({ status: 404, description: 'Order not found.' })
+  findMenus(@Param('id') id: string) {
+    return this.ordersService.findMenus(id);
   }
 }
