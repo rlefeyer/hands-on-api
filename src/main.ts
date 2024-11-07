@@ -15,8 +15,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: 'http://localhost:4200',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: process.env.FRONT_URL,
+    methods: process.env.FRONT_METHODS,
     preflightContinue: false,
     optionsSuccessStatus: 204,
   });
