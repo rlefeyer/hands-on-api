@@ -14,6 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Menu } from 'src/menus/entities/menu.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
@@ -132,6 +133,29 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
+  @Get('menus')
+  @ApiOperation({
+    summary: 'Get all order menus',
+    description: 'Retrieves all menus from all orders.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Menus successfully retrieved',
+    schema: {
+      example: [
+        { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
+        { menuId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
+      ],
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No menus found',
+  })
+  findAllMenus() {
+    return this.ordersService.findAllMenus();
+  }
+
   @Get(':id')
   @ApiOperation({
     summary: 'Get a specific order by id',
@@ -147,6 +171,25 @@ export class OrdersController {
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(id);
   }
+
+  @Get(':id/menus')
+  @ApiOperation({
+    summary: 'Get a specific menu from an order',
+    description:
+      'Retrieves a specific menu from an order by its unique identifier.',
+  })
+  @ApiParam({ name: 'id', type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'The menu has been successfully retrieved.',
+    type: Menu,
+  })
+  @ApiResponse({ status: 404, description: 'Menu not found.' })
+  @ApiResponse({ status: 500, description: 'Internal server error.' })
+  findOneMenu(@Param('id') id: string) {
+    return this.ordersService.findOneMenu(id);
+  }
+  r;
 
   @Patch(':id')
   @ApiOperation({
