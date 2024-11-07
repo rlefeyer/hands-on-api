@@ -20,7 +20,7 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @Get(':id')
+  @Get(':id/menus')
   @ApiOkResponse({description: 'Order returned successfully'})
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
