@@ -44,4 +44,16 @@ export class OrdersService {
     }
     this.orders.splice(orderIndex, 1);
   }
+
+  findAllMenus() {
+    const allMenus = this.orders.flatMap((order) => order.menus);
+    if (allMenus.length === 0) {
+      throw new NotFoundException('No menus found');
+    }
+    return allMenus;
+  }
+
+  findOneMenu(id: string) {
+    return this.findOne(id).menus;
+  }
 }
