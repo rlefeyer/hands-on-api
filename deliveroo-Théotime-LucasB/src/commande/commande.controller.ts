@@ -4,6 +4,9 @@ import { CommandeService } from './commande.service';
 import { CreateCommandeDto } from './dto/create-commande.dto';
 import { UpdateCommandeDto } from './dto/update-commande.dto';
 import { Commande } from './entities/commande.entity';
+import { Menu } from 'src/menu/entities/menu.entity';
+import { Item } from 'src/items/entities/item.entity';
+import { Version } from '@nestjs/common';
 
 @ApiTags('commande')
 @Controller('commande')
@@ -38,6 +41,27 @@ export class CommandeController {
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
   findOne(@Param('id') id: string) {
     return this.commandeService.findOne(+id);
+  }
+
+  @Get(':id/menus')
+  @ApiOperation({ summary: 'Get a menu with commande by ID', deprecated: true })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return the menu by commande with the given ID.', type: [Menu] })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Commande not found.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
+  findMenus(@Param('id') id: string) {
+    return this.commandeService.findMenus(+id);
+  }
+
+  @Get(':id/items')
+  @ApiOperation({ summary: 'Get a items with commande by ID' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return the items by commande with the given ID.', type: [Item] })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Commande not found.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
+  @Version('2')
+  findItems(@Param('id') id: string) {
+    return this.commandeService.findItems(+id);
   }
 
   @Patch(':id')

@@ -16,6 +16,14 @@ export class CommandeService {
     return `This action returns a #${id} commande`;
   }
 
+  findMenus(id: number) {
+    return `This action returns the menus from a #${id} commande`;
+  }
+
+  findItems(id: number) {
+    return `This action returns the items from a #${id} commande`;
+  }
+
   update(id: number, updateCommandeDto: UpdateCommandeDto) {
     return `This action updates a #${id} commande`;
   }

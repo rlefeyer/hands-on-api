@@ -11,7 +11,7 @@ export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new menu' })
+  @ApiOperation({ summary: 'Create a new menu', deprecated: true })
   @ApiResponse({ status: HttpStatus.CREATED, description: 'Le menu a été créé avec succès.', type: Menu })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Les données fournies sont invalides.' })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Non autorisé.' })
@@ -22,7 +22,7 @@ export class MenuController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all menus' })
+  @ApiOperation({ summary: 'Get all menus', deprecated: true })
   @ApiResponse({ status: HttpStatus.OK, description: 'Retourne tous les menus.', type: [Menu] })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Non autorisé.' })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Erreur interne du serveur.' })
@@ -31,7 +31,7 @@ export class MenuController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a menu by ID' })
+  @ApiOperation({ summary: 'Get a menu by ID', deprecated: true })
   @ApiResponse({ status: HttpStatus.OK, description: 'Retourne le menu avec l\'ID donné.', type: Menu })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Menu non trouvé.' })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Non autorisé.' })
@@ -41,7 +41,7 @@ export class MenuController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update a menu by ID' })
+  @ApiOperation({ summary: 'Update a menu by ID', deprecated: true })
   @ApiResponse({ status: HttpStatus.OK, description: 'Le menu a été mis à jour avec succès.', type: Menu })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Menu non trouvé.' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Les données fournies sont invalides.' })
@@ -52,7 +52,7 @@ export class MenuController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a menu by ID' })
+  @ApiOperation({ summary: 'Delete a menu by ID', deprecated: true })
   @ApiResponse({ status: HttpStatus.OK, description: 'Le menu a été supprimé avec succès.' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Menu non trouvé.' })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Non autorisé.' })
