@@ -27,4 +27,8 @@ export class OrdersService {
   findMenus(id: string) {
     return `This action returns all menus for order #${id}`;
   }
+
+  findItems(id: string) {
+    return `This action returns all items for order #${id}`;
+  }
 }
