@@ -21,19 +21,27 @@ export class UserService {
         return this.userRepository.save(user);
     }
 
-    findAll() {
-        return `This action returns all user`;
+    findAll(): Promise<User[]> {
+        return this.userRepository.find();
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} user`;
+    findOne(id: string): Promise<User> {
+        return this.userRepository.findOne({where: {id}});
     }
 
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+    async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+        const user: User = new User();
+        user.name = updateUserDto.name;
+        user.adresse = updateUserDto.adresse;
+        user.telephone = updateUserDto.telephone;
+        return this.userRepository.update(id, user).then(() => {
+            return this.userRepository.findOne({where: {id}});
+        });
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} user`;
+    async remove(id: string): Promise<boolean> {
+        return this.userRepository.delete(id).then((item) => {
+            return item.affected >= 1;
+        });
     }
 }
