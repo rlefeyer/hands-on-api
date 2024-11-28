@@ -8,7 +8,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Menu } from 'src/menus/entities/menu.entity';
+import { Item } from 'src/items/entities/item.entity';
 
 export class CreateRestaurantDto {
   @IsString()
@@ -31,7 +31,7 @@ export class CreateRestaurantDto {
   adresse: string;
 
   @IsArray()
-  menus: Menu[];
+  items: Item[];
 
   @IsNumber()
   @IsOptional()
