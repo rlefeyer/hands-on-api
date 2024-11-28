@@ -25,6 +25,7 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
         password: configService.getOrThrow('PASSWORD'),
         database: configService.getOrThrow('DATABASE'),
         synchronize: true,
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     })
