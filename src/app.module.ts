@@ -7,7 +7,7 @@ import { MenusModule } from "./menus/menus.module";
 import { RestaurantsModule } from "./restaurants/restaurants.module";
 import { ItemsModule } from "./Items/items.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import {User} from "./users/entities/user.entity";
+import { User } from "./users/entities/user.entity";
 import * as dotenv from "dotenv";
 import * as process from "node:process";
 

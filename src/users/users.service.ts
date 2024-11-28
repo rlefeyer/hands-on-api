@@ -22,12 +22,12 @@ export class UsersService {
   }
 
   findOne(id: string): Promise<User> {
-    return this.userRepository.findOne({where: {id}});
+    return this.userRepository.findOne({ where: { id } });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     await this.userRepository.update(id, updateUserDto);
-    return this.userRepository.findOne({where: {id}});
+    return this.userRepository.findOne({ where: { id } });
   }
 
   async remove(id: string): Promise<void> {
