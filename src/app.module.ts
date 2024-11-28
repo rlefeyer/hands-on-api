@@ -20,9 +20,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       host: "deliveroodb-clement-28ce.f.aivencloud.com",
       port: 14466,
       username: "avnadmin",
-      password: "",
       database: "defaultdb",
-      entities: [__dirname + "/../**/*.entity{.ts,.js}"],
+      entities: [],
       synchronize: true,
       logging: true,
       ssl: {
