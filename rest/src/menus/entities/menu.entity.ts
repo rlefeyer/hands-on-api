@@ -1,7 +1,7 @@
 import {Restaurant} from "../../restaurants/entities/restaurant.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
-import {Column, Entity, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Menu {
@@ -24,8 +24,8 @@ export class Menu {
     @IsString()
     prix: number;
 
-    @Column({type: "varchar", length: 30})
-    @ManyToMany(() => Restaurant, restaurant => restaurant.menu)
+    @ManyToMany(() => Restaurant, restaurant => restaurant.menu, {cascade: true})
+    @JoinTable()
     @ApiProperty({
         example: {
             name: "McDo",

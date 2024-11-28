@@ -35,13 +35,9 @@ export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
 
     @IsNotEmpty()
     @ApiProperty({
-        example: [{
-            id: "1",
-            name: "MaxiBestOf",
-            description: "Le meilleur menu de chez McDo",
-            prix: 10,
-            restaurant: "McDo",
-        }],
+        example: [1, 2],
+        description: "The menu of the restaurant",
+        type: () => [Menu],
     })
     @IsObject()
     menu: Menu[];
