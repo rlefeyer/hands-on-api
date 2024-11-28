@@ -4,7 +4,7 @@ import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('menus')
+@Controller('v1/menus')
 export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 

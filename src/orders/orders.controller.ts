@@ -4,7 +4,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('orders')
+@Controller('v1/orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

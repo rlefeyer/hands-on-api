@@ -4,7 +4,7 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('restaurants')
+@Controller('v1/restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
