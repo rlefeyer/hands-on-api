@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Item } from './items/entities/item.entity';
 import { ItemsModule } from './items/items.module';
-import { Menu } from './menus/entities/menu.entity';
 import { MenusModule } from './menus/menus.module';
 import { OrdersModule } from './orders/orders.module';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
@@ -11,6 +12,9 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     OrdersModule,
     RestaurantsModule,
     MenusModule,
@@ -23,7 +27,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Restaurant, Menu],
+      entities: [User, Restaurant, Item],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
   ],
