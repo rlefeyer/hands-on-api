@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsNumber, IsNotEmpty, Length } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateRestaurantDto {
@@ -8,6 +8,8 @@ export class CreateRestaurantDto {
   id?: number;
 
   @IsString()
+  @IsNotEmpty()
+  @Length(2, 200)
   @ApiProperty({ description: 'The name of the restaurant', example: 'Le Gourmet' })
   name: string;
 
@@ -17,6 +19,8 @@ export class CreateRestaurantDto {
   description?: string;
 
   @IsString()
+  @IsNotEmpty()
+  @Length(2, 200)
   @ApiProperty({ description: 'The address of the restaurant', example: '456 Culinary Blvd' })
   address: string;
 

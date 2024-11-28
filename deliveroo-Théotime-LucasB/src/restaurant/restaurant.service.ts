@@ -1,26 +1,68 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { Restaurant } from './entities/restaurant.entity';
 
 @Injectable()
 export class RestaurantService {
-  create(createRestaurantDto: CreateRestaurantDto) {
-    return 'This action adds a new restaurant';
+  constructor(
+    @InjectRepository(Restaurant)
+    private readonly restaurantRepository: Repository<Restaurant>,
+  ){}
+
+  async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
+    try {
+      const newRestaurant = this.restaurantRepository.create(createRestaurantDto);
+      return await this.restaurantRepository.save(newRestaurant);
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to create restaurant');
+    }
   }
 
-  findAll() {
-    return `This action returns all restaurant`;
+  async findAll(): Promise<Restaurant[]> {
+    try {
+      return await this.restaurantRepository.find();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve restaurants');
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} restaurant`;
+  async findOne(id: number): Promise<Restaurant> {
+    try {
+      const restaurant = await this.restaurantRepository.findOneBy({ id });
+      if (!restaurant) {
+        throw new NotFoundException(`Restaurant with ID ${id} not found`);
+      }
+      return restaurant;
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve restaurant');
+    }
   }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
+  async update(id: number, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
+    try {
+      await this.restaurantRepository.update(id, updateRestaurantDto);
+      const updatedRestaurant = await this.findOne(id);
+      if (!updatedRestaurant) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return updatedRestaurant;
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('Failed to update restaurant');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} restaurant`;
+  async remove(id: number): Promise<void> {
+    try {
+      const result = await this.restaurantRepository.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException(`Restaurant with ID ${id} not found`);
+      }
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to delete restaurant');
+    }
   }
 }

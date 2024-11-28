@@ -1,26 +1,30 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { IsString, IsInt, IsOptional } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/swagger';
+import { IsString, IsInt, IsOptional, IsNotEmpty, IsEmail, Length, Matches } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   @IsInt()
-  @ApiProperty({ description: 'The unique identifier of the user', example: 1 })
+  @ApiPropertyOptional({ description: 'The unique identifier of the user', example: 1 })
   id?: number;
 
   @IsOptional()
   @IsString()
-  @ApiProperty({ description: 'The name of the user', example: 'John Doe' })
+  @Length(1, 100)
+  @ApiPropertyOptional({ description: 'The name of the user', example: 'John Doe' })
   name?: string;
 
   @IsOptional()
   @IsString()
-  @ApiProperty({ description: 'The address of the user', example: '123 Main St' })
+  @Length(1, 200)
+  @ApiPropertyOptional({ description: 'The address of the user', example: '123 Main St' })
   address?: string;
 
   @IsOptional()
   @IsString()
-  @ApiProperty({ description: 'The telephone number of the user', example: '+1234567890' })
+  @Length(10, 15)
+  @Matches(/^\+?[0-9]*$/, { message: 'The telephone number must be a valid phone number' })
+  @ApiPropertyOptional({ description: 'The telephone number of the user', example: '+1234567890' })
   telephone?: string;
 }
