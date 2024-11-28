@@ -12,9 +12,11 @@ export class Item {
   @Column({ nullable: true })
   description?: string;
 
-  @Column()
+  @Column({ type: 'float' })
   price: number;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.items)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.items, {
+    onDelete: 'CASCADE',
+  })
   restaurant: Restaurant;
 }

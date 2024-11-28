@@ -36,11 +36,17 @@ export class RestaurantsController {
       validRestaurant: {
         summary: 'A valid restaurant',
         value: {
-          name: 'Restaurant 1',
-          description: 'Description of the restaurant',
-          adresse: '123 Main St, Anytown, USA',
-          menus: [],
-          note: 4.5,
+          name: 'KFC',
+          description: 'KFC is a fast food restaurant',
+          adresse: '12 rue de solferino, Lille, 59000',
+          items: [
+            {
+              name: 'BFF',
+              description: 'Big Fat Burger',
+              price: 10,
+            },
+          ],
+          note: 4.8,
           horaires: '10:00-22:00',
         },
       },
@@ -109,11 +115,18 @@ export class RestaurantsController {
       example: [
         {
           id: '123e4567-e89b-12d3-a456-426614174004',
-          name: 'Restaurant 1',
-          description: 'Description of the restaurant',
-          adresse: '123 Main St, Anytown, USA',
-          menus: [],
-          note: 4.5,
+          name: 'KFC',
+          description: 'KFC is a fast food restaurant',
+          adresse: '12 rue de solferino, Lille, 59000',
+          items: [
+            {
+              id: '123e4567-e89b-12d3-a456-426614174004',
+              name: 'BFF',
+              description: 'Big Fat Burger',
+              price: 10,
+            },
+          ],
+          note: 4.8,
           horaires: '10:00-22:00',
         },
       ],
@@ -199,11 +212,17 @@ export class RestaurantsController {
     schema: {
       example: {
         id: '123e4567-e89b-12d3-a456-426614174004',
-        name: 'Updated Restaurant 1',
-        description: 'Updated description of the restaurant',
-        adresse: '456 Main St, Anytown, USA',
-        menus: [],
-        note: 4.5,
+        name: 'Updated KFC',
+        description: 'KFC is a fast food restaurant',
+        adresse: '12 rue de solferino, Lille, 59000',
+        items: [
+          {
+            id: '123e4567-e89b-12d3-a456-426614174004',
+            name: 'BFF',
+            price: 10,
+          },
+        ],
+        note: 4.8,
         horaires: '10:00-22:00',
       },
     },

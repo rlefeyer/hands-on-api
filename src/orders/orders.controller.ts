@@ -155,8 +155,8 @@ export class OrdersController {
     status: 404,
     description: 'No menus found',
   })
-  findAllMenus() {
-    return this.ordersService.findAllMenus();
+  findAllItems() {
+    return this.ordersService.findAllItems();
   }
 
   @Get(':id')
@@ -191,10 +191,9 @@ export class OrdersController {
   })
   @ApiResponse({ status: 404, description: 'Menu not found.' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  findOneMenu(@Param('id') id: string) {
-    return this.ordersService.findOneMenu(id);
+  findOneItem(@Param('id') id: string) {
+    return this.ordersService.findOneItem(id);
   }
-  r;
 
   @Patch(':id')
   @ApiOperation({

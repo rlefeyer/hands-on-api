@@ -1,48 +1,49 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemsService {
-  private items: Item[] = [];
+  constructor(
+    @InjectRepository(Item)
+    private itemsRepository: Repository<Item>,
+  ) {}
 
-  create(createItemDto: CreateItemDto): Item {
-    const newItem: Item = {
-      id: uuidv4(),
-      ...createItemDto,
-    };
-    this.items.push(newItem);
-    return newItem;
+  create(createItemDto: CreateItemDto): Promise<Item> {
+    const item = this.itemsRepository.create(createItemDto);
+    return this.itemsRepository.save(item);
   }
 
-  findAll(): Item[] {
-    return this.items;
+  findAll(): Promise<Item[]> {
+    return this.itemsRepository.find({
+      relations: ['restaurant'],
+    });
   }
 
-  findOne(id: string): Item {
-    const item = this.items.find((item) => item.id === id);
+  async findOne(id: string): Promise<Item> {
+    const item = await this.itemsRepository.findOne({
+      where: { id },
+      relations: ['restaurant'],
+    });
     if (!item) {
-      throw new NotFoundException(`Item with ID ${id} not found`);
+      throw new NotFoundException(`Item #${id} not found`);
     }
     return item;
   }
 
-  update(id: string, updateItemDto: UpdateItemDto): Item {
-    const itemIndex = this.items.findIndex((item) => item.id === id);
-    if (itemIndex === -1) {
-      throw new NotFoundException(`Item with ID ${id} not found`);
-    }
-    this.items[itemIndex] = { ...this.items[itemIndex], ...updateItemDto };
-    return this.items[itemIndex];
+  async update(id: string, updateItemDto: UpdateItemDto): Promise<Item> {
+    const item = await this.findOne(id);
+    Object.assign(item, updateItemDto);
+    return this.itemsRepository.save(item);
   }
 
-  remove(id: string): void {
-    const itemIndex = this.items.findIndex((item) => item.id === id);
-    if (itemIndex === -1) {
-      throw new NotFoundException(`Item with ID ${id} not found`);
+  async remove(id: string): Promise<void> {
+    const result = await this.itemsRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Item #${id} not found`);
     }
-    this.items.splice(itemIndex, 1);
   }
 }

@@ -19,6 +19,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { OrdersService } from './orders.service';
+import { Item } from 'src/items/entities/item.entity';
 
 @ApiTags('orders')
 @Controller('v2/orders')
@@ -38,8 +39,8 @@ export class OrdersControllerV2 {
         summary: 'A valid order',
         value: {
           items: [
-            { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
-            { menuId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
+            { itemsId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
+            { itemsId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
           ],
           prix: 29.99,
           user: {
@@ -59,8 +60,8 @@ export class OrdersControllerV2 {
         userId: '123e4567-e89b-12d3-a456-426614174000',
         restaurantId: '123e4567-e89b-12d3-a456-426614174001',
         items: [
-          { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
-          { menuId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
+          { itemsId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
+          { itemsId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
         ],
         totalPrice: 29.99,
         status: 'pending',
@@ -143,8 +144,8 @@ export class OrdersControllerV2 {
     description: 'Items successfully retrieved',
     schema: {
       example: [
-        { menuId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
-        { menuId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
+        { itemsId: '123e4567-e89b-12d3-a456-426614174002', quantity: 2 },
+        { itemsId: '123e4567-e89b-12d3-a456-426614174003', quantity: 1 },
       ],
     },
   })
@@ -174,22 +175,21 @@ export class OrdersControllerV2 {
 
   @Get(':id/items')
   @ApiOperation({
-    summary: 'Get a specific menu from an order',
+    summary: 'Get a specific item from an order',
     description:
-      'Retrieves a specific menu from an order by its unique identifier.',
+      'Retrieves a specific item from an order by its unique identifier.',
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({
     status: 200,
-    description: 'The menu has been successfully retrieved.',
-    type: Menu,
+    description: 'The item has been successfully retrieved.',
+    type: Item,
   })
-  @ApiResponse({ status: 404, description: 'Menu not found.' })
+  @ApiResponse({ status: 404, description: 'Item not found.' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  findOneMenu(@Param('id') id: string) {
-    return this.ordersService.findOneMenu(id);
+  findOneItem(@Param('id') id: string) {
+    return this.ordersService.findOneItem(id);
   }
-  r;
 
   @Patch(':id')
   @ApiOperation({

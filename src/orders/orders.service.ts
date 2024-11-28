@@ -1,67 +1,73 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Item } from 'src/items/entities/item.entity';
+import { ItemsService } from 'src/items/items.service';
+import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
+
 @Injectable()
 export class OrdersService {
-  private orders: Order[] = [];
+  constructor(
+    @InjectRepository(Order)
+    private ordersRepository: Repository<Order>,
+    private itemsService: ItemsService,
+  ) {}
 
-  create(createOrderDto: CreateOrderDto): Order {
-    const newOrder: Order = {
-      id: uuidv4(),
-      ...createOrderDto,
-    };
-    this.orders.push(newOrder);
-    return newOrder;
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const { items: itemDtos, ...orderData } = createOrderDto;
+    const order = this.ordersRepository.create(orderData);
+
+    if (itemDtos) {
+      const items = await Promise.all(
+        itemDtos.map((item) => this.itemsService.findOne(item.itemId)),
+      );
+      order.items = items;
+    }
+
+    return this.ordersRepository.save(order);
   }
 
-  findAll(): Order[] {
-    return this.orders;
+  findAll(): Promise<Order[]> {
+    return this.ordersRepository.find({
+      relations: ['user', 'menus', 'items'],
+    });
   }
 
-  findOne(id: string): Order {
-    const order = this.orders.find((order) => order.id === id);
+  async findOne(id: string): Promise<Order> {
+    const order = await this.ordersRepository.findOne({
+      where: { id },
+      relations: ['user', 'menus', 'items'],
+    });
     if (!order) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
+      throw new NotFoundException(`Order #${id} not found`);
     }
     return order;
   }
 
-  update(id: string, updateOrderDto: UpdateOrderDto): Order {
-    const orderIndex = this.orders.findIndex((order) => order.id === id);
-    if (orderIndex === -1) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
-    }
-    this.orders[orderIndex] = { ...this.orders[orderIndex], ...updateOrderDto };
-    return this.orders[orderIndex];
+  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    const order = await this.findOne(id);
+    Object.assign(order, updateOrderDto);
+    return this.ordersRepository.save(order);
   }
 
-  remove(id: string): void {
-    const orderIndex = this.orders.findIndex((order) => order.id === id);
-    if (orderIndex === -1) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
+  async remove(id: string): Promise<void> {
+    const result = await this.ordersRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Order #${id} not found`);
     }
-    this.orders.splice(orderIndex, 1);
   }
 
-  findAllMenus() {
-    const allMenus = this.orders.flatMap((order) => order.menus);
-    if (allMenus.length === 0) {
-      throw new NotFoundException('No menus found');
-    }
-    return allMenus;
+  async findAllItems(): Promise<Item[]> {
+    const orders = await this.ordersRepository.find({
+      relations: ['items'],
+    });
+    return orders.flatMap((order) => order.items || []);
   }
 
-  findOneMenu(id: string) {
-    return this.findOne(id).menus;
-  }
-
-  findAllItems() {
-    const allItems = this.orders.flatMap((order) => order.items);
-    if (allItems.length === 0) {
-      throw new NotFoundException('No items found');
-    }
-    return allItems;
+  async findOneItem(id: string): Promise<Item[]> {
+    const order = await this.findOne(id);
+    return order.items || [];
   }
 }
