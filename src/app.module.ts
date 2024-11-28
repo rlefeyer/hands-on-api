@@ -8,7 +8,10 @@ import { RestaurantsModule } from "./restaurants/restaurants.module";
 import { ItemsModule } from "./Items/items.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import {User} from "./users/entities/user.entity";
+import * as dotenv from "dotenv";
 import * as process from "node:process";
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -23,6 +26,7 @@ import * as process from "node:process";
       port: 14466,
       username: "avnadmin",
       database: "defaultdb",
+      password: process.env.DATABASE_PASSWORD,
       entities: [User],
       synchronize: true,
       logging: true,
