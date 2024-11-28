@@ -1,75 +1,73 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
+
 @Injectable()
 export class RestaurantsService {
-  private restaurants: Restaurant[] = [];
+  constructor(
+    @InjectRepository(Restaurant)
+    private restaurantsRepository: Repository<Restaurant>,
+  ) {}
 
-  create(createRestaurantDto: CreateRestaurantDto): Restaurant {
-    const newRestaurant: Restaurant = {
-      id: uuidv4(),
-      ...createRestaurantDto,
-      note: 0,
-    };
-    this.restaurants.push(newRestaurant);
-    return newRestaurant;
+  create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
+    const restaurant = this.restaurantsRepository.create(createRestaurantDto);
+    return this.restaurantsRepository.save(restaurant);
   }
 
-  findAll(name?: string, adresse?: string, limit = 100): Restaurant[] {
-    let filteredRestaurants = this.restaurants;
-    if (name || adresse) {
-      filteredRestaurants = this.restaurants.filter(
-        (restaurant) =>
-          (!name || restaurant.nom.includes(name)) &&
-          (!adresse || restaurant.adresse.includes(adresse)),
-      );
+  findAll(name?: string, adresse?: string): Promise<Restaurant[]> {
+    const queryBuilder =
+      this.restaurantsRepository.createQueryBuilder('restaurant');
+
+    if (name) {
+      queryBuilder.andWhere('restaurant.name LIKE :name', {
+        name: `%${name}%`,
+      });
     }
-    return limit ? filteredRestaurants.slice(0, limit) : filteredRestaurants;
+    if (adresse) {
+      queryBuilder.andWhere('restaurant.adresse LIKE :adresse', {
+        adresse: `%${adresse}%`,
+      });
+    }
+
+    return queryBuilder.getMany();
   }
 
-  findOne(id: string): Restaurant {
-    const restaurant = this.restaurants.find(
-      (restaurant) => restaurant.id === id,
-    );
+  async findOne(id: string): Promise<Restaurant> {
+    const restaurant = await this.restaurantsRepository.findOne({
+      where: { id },
+      relations: ['menus'],
+    });
     if (!restaurant) {
-      throw new NotFoundException(`Restaurant with ID ${id} not found`);
+      throw new NotFoundException(`Restaurant #${id} not found`);
     }
     return restaurant;
   }
 
-  update(id: string, updateRestaurantDto: UpdateRestaurantDto): Restaurant {
-    const restaurantIndex = this.restaurants.findIndex(
-      (restaurant) => restaurant.id === id,
-    );
-    if (restaurantIndex === -1) {
-      throw new NotFoundException(`Restaurant with ID ${id} not found`);
-    }
-    this.restaurants[restaurantIndex] = {
-      ...this.restaurants[restaurantIndex],
-      ...updateRestaurantDto,
-    };
-    return this.restaurants[restaurantIndex];
+  async update(
+    id: string,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    const restaurant = await this.findOne(id);
+    Object.assign(restaurant, updateRestaurantDto);
+    return this.restaurantsRepository.save(restaurant);
   }
 
-  remove(id: string): void {
-    const restaurantIndex = this.restaurants.findIndex(
-      (restaurant) => restaurant.id === id,
-    );
-    if (restaurantIndex === -1) {
-      throw new NotFoundException(`Restaurant with ID ${id} not found`);
+  async remove(id: string): Promise<void> {
+    const result = await this.restaurantsRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Restaurant #${id} not found`);
     }
-    this.restaurants.splice(restaurantIndex, 1);
   }
 
-  addRating(id: string, rating: number): Restaurant {
-    const restaurant = this.findOne(id);
+  async addRating(id: string, rating: number): Promise<Restaurant> {
+    const restaurant = await this.findOne(id);
     if (restaurant.note === 0) {
       restaurant.note = rating;
-    } else {
-      throw new Error('La note a déjà été ajoutée à ce restaurant.');
+      return this.restaurantsRepository.save(restaurant);
     }
-    return restaurant;
+    throw new Error('La note a déjà été ajoutée à ce restaurant.');
   }
 }
