@@ -22,5 +22,5 @@ export class Restaurant {
   Note: string;
 
   @Column()
-  schedules: string;
+  Schedules: string;
 }

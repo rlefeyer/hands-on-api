@@ -30,5 +30,5 @@ export class CreateRestaurantDto {
   @ApiProperty({ description: 'Operating hours of the restaurant' })
   @IsString()
   @IsNotEmpty()
-  schedules: string;
+  Schedules: string;
 }
