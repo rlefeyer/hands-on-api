@@ -14,9 +14,12 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
-    user.Name = createUserDto.Name;
-    user.Address = createUserDto.Address;
-    user.Phone = createUserDto.Phone;
+    user.name = createUserDto.name;
+    user.username = createUserDto.username;
+    user.email = createUserDto.email;
+    user.age = createUserDto.age;
+    user.gender = createUserDto.gender;
+    user.password = createUserDto.password;
 
     return await this.userRepository.save(user);
   }

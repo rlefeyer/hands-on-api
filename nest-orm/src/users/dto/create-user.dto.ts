@@ -1,19 +1,33 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, Min, IsEnum } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({ description: 'The name of the user' })
   @IsString()
   @IsNotEmpty()
-  Name: string;
+  name: string;
 
-  @ApiProperty({ description: 'The address of the user' })
+  @ApiProperty({ description: 'The username of the user' })
   @IsString()
   @IsNotEmpty()
-  Address: string;
+  username: string;
 
-  @ApiProperty({ description: 'The phone number of the user' })
+  @ApiProperty({ description: 'The email address of the user' })
   @IsString()
   @IsNotEmpty()
-  Phone: string;
+  email: string;
+
+  @ApiProperty({ description: 'The age of the user', example: 25 })
+  @IsInt()
+  @Min(0, { message: 'Age must be a positive number.' })
+  age: number;
+
+  @ApiProperty({ description: 'The password of the user' })
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({ description: 'The gender of the user', enum: ['m', 'f', 'u'] })
+  @IsEnum(['m', 'f', 'u'], { message: 'Gender must be "m", "f", or "u".' })
+  gender: string;
 }
