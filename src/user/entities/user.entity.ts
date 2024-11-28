@@ -1,18 +1,25 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
+@Entity()
 export class User {
+
+    @PrimaryGeneratedColumn()
     id: string;
 
-    @ApiProperty({example: 'John'})
+    @Column({type: "varchar", length: 30})
+    @ApiProperty({example: "John"})
     @IsString()
     name: string;
 
-    @ApiProperty({example: '5 rue de la paix'})
+    @Column({type: "varchar", length: 255})
+    @ApiProperty({example: "5 rue de la paix"})
     @IsString()
     adresse: string;
 
-    @ApiProperty({example: '0606060606'})
+    @Column({type: "varchar", length: 15})
+    @ApiProperty({example: "0606060606"})
     @IsString()
     telephone: string;
 
