@@ -7,6 +7,8 @@ import { MenusModule } from "./menus/menus.module";
 import { RestaurantsModule } from "./restaurants/restaurants.module";
 import { ItemsModule } from "./Items/items.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import {User} from "./users/entities/user.entity";
+import * as process from "node:process";
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       port: 14466,
       username: "avnadmin",
       database: "defaultdb",
-      entities: [],
+      entities: [User],
       synchronize: true,
       logging: true,
       ssl: {
