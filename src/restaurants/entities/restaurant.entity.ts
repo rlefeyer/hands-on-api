@@ -1,11 +1,26 @@
-import { Menu } from '../../menus/entities/menu.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Restaurant {
+  @PrimaryGeneratedColumn()
   id: number;
-  nom: string;
-  description: string;
-  adresse: string;
-  menus: Menu[]
-  note: number;
-  horaires: string;
+
+  @Column()
+  Name: string;
+
+  @Column()
+  Description: string;
+
+  @Column()
+  Address: string;
+
+
+  @Column("text", { array: true })
+  Menus: string[];
+
+  @Column()
+  Note: string;
+
+  @Column()
+  Schedules: string;
 }

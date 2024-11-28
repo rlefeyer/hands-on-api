@@ -1,44 +1,34 @@
-import { Menu } from '../../menus/entities/menu.entity';
-import { IsArray, IsNumber, IsObject, IsString, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
+import { IsString, IsNotEmpty, IsArray } from 'class-validator';
 
 export class CreateRestaurantDto {
-  @ApiProperty({
-    description: 'Nom du restaurant',
-    type: String
-  })
+  @ApiProperty({ description: 'The name of the restaurant' })
   @IsString()
-  nom: string;
-  @ApiProperty({
-    description: 'Description du restaurant',
-    type: String
-  })
+  @IsNotEmpty()
+  Name: string;
+
+  @ApiProperty({ description: 'A short description of the restaurant' })
   @IsString()
-  description: string;
-  @ApiProperty({
-    description: 'Adresse du restaurant',
-    type: String
-  })
+  @IsNotEmpty()
+  Description: string;
+
+  @ApiProperty({ description: 'The address of the restaurant' })
   @IsString()
-  adresse: string;
-  @ApiProperty({
-    description: 'Menus du restaurant',
-    type: [Menu]
-  })
-  @ValidateNested({ each: true })
-  @Type(() => Menu)
-  menus: Menu[]
-  @ApiProperty({
-    description: 'Note du restaurant',
-    type: Number
-  })
-  @IsNumber()
-  note: number;
-  @ApiProperty({
-    description: 'Horaires du restaurant',
-    type: String
-  })
+  @IsNotEmpty()
+  Address: string;
+
+  @ApiProperty({ description: 'List of menus offered by the restaurant', type: [String] })
+  @IsArray()
+  @IsNotEmpty()
+  Menus: string[];
+
+  @ApiProperty({ description: 'Rating or note given to the restaurant' })
   @IsString()
-  horaires: string;
+  @IsNotEmpty()
+  Note: string;
+
+  @ApiProperty({ description: 'Operating hours of the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Schedules: string;
 }
