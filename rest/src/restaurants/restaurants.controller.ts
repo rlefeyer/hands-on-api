@@ -42,13 +42,13 @@ export class RestaurantsController {
 
     @Get(":id")
     @ApiResponse({status: 200, description: "The record has been successfully returned", type: Restaurant})
-    findOne(@Param("id") id: string) {
+    findOne(@Param("id") id: number) {
         return this.restaurantsService.findOne(id);
     }
 
     @Patch(":id")
     @ApiResponse({status: 200, description: "The record has been successfully updated", type: Restaurant})
-    update(@Param("id") id: string, @Body() updateRestaurantDto: UpdateRestaurantDto) {
+    update(@Param("id") id: number, @Body() updateRestaurantDto: UpdateRestaurantDto) {
         return this.restaurantsService.update(id, updateRestaurantDto);
     }
 
@@ -56,7 +56,7 @@ export class RestaurantsController {
     @ApiResponse({status: 200, description: "The record has been successfully deleted"})
     @ApiResponse({status: 403, description: "Forbidden."})
     @ApiResponse({status: 404, description: "Not Found."})
-    remove(@Param("id") id: string) {
+    remove(@Param("id") id: number) {
         return this.restaurantsService.remove(id);
     }
 }

@@ -21,11 +21,11 @@ export class UserService {
         return this.userRepository.find();
     }
 
-    findOne(id: string): Promise<User> {
+    findOne(id: number): Promise<User> {
         return this.userRepository.findOne({where: {id}});
     }
 
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
         const user: User = new User();
         user.name = updateUserDto.name;
         user.adresse = updateUserDto.adresse;
@@ -35,7 +35,7 @@ export class UserService {
         });
     }
 
-    async remove(id: string): Promise<boolean> {
+    async remove(id: number): Promise<boolean> {
         return this.userRepository.delete(id).then((item) => {
             return item.affected >= 1;
         });

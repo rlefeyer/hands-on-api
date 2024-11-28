@@ -6,7 +6,7 @@ import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({type: "varchar", length: 30})
     @ApiProperty({example: "John"})

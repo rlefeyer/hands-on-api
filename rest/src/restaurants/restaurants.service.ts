@@ -25,17 +25,17 @@ export class RestaurantsService {
         });
     }
 
-    findOne(id: string): Promise<Restaurant> {
+    findOne(id: number): Promise<Restaurant> {
         return this.restaurantRepository.findOne({where: {id}});
     }
 
-    async update(id: string, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
+    async update(id: number, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
         return this.restaurantRepository.update(id, updateRestaurantDto).then(() => {
             return this.restaurantRepository.findOne({where: {id}});
         });
     }
 
-    async remove(id: string): Promise<boolean> {
+    async remove(id: number): Promise<boolean> {
         return this.restaurantRepository.delete(id).then((item) => {
             return item.affected >= 1;
         });

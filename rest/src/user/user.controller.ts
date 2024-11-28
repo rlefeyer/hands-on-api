@@ -25,13 +25,13 @@ export class UserController {
 
     @Get(":id")
     @ApiResponse({status: 200, description: "The record has been successfully returned.", type: User})
-    findOne(@Param("id") id: string) {
+    findOne(@Param("id") id: number) {
         return this.userService.findOne(id);
     }
 
     @Patch(":id")
     @ApiResponse({status: 200, description: "The record has been successfully updated.", type: User})
-    update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
+    update(@Param("id") id: number, @Body() updateUserDto: UpdateUserDto) {
         return this.userService.update(id, updateUserDto);
     }
 
@@ -39,7 +39,7 @@ export class UserController {
     @ApiResponse({status: 200, description: "The record has been successfully deleted."})
     @ApiResponse({status: 403, description: "Forbidden."})
     @ApiResponse({status: 404, description: "Not Found."})
-    remove(@Param("id") id: string) {
+    remove(@Param("id") id: number) {
         return this.userService.remove(id);
     }
 }

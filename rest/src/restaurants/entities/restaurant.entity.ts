@@ -7,31 +7,39 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 export class Restaurant {
 
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({type: "varchar", length: 30})
-    @ApiProperty({example: 'McDo'})
+    @ApiProperty({example: "McDo"})
     @IsString()
     name: string;
 
     @Column({type: "varchar", length: 255})
-    @ApiProperty({example: 'Le meilleur fast-food'})
+    @ApiProperty({example: "Le meilleur fast-food"})
     @IsString()
     description: string;
 
     @Column({type: "varchar", length: 30})
-    @ApiProperty({example: 'fast-food'})
+    @ApiProperty({example: "fast-food"})
     @IsString()
     categorie: string;
 
     @Column({type: "varchar", length: 255})
-    @ApiProperty({example: '5 rue de la paix'})
+    @ApiProperty({example: "5 rue de la paix"})
     @IsString()
     adresse: string;
 
-    @Column({type: "json" })
+    @Column({type: "json"})
     @OneToMany(() => Menu, menu => menu.restaurant)
-    @ApiProperty({example: [{id: '1', name: 'MaxiBestOf', description: 'Le meilleur menu de chez McDo', prix: 10, restaurant: 'McDo'}]})
+    @ApiProperty({
+        example: [{
+            id: 1,
+            name: "MaxiBestOf",
+            description: "Le meilleur menu de chez McDo",
+            prix: 10,
+            restaurant: "McDo",
+        }],
+    })
     @IsObject()
     menu: Menu[];
 
@@ -41,7 +49,7 @@ export class Restaurant {
     note: number;
 
     @Column({type: "varchar", length: 30})
-    @ApiProperty({example: '10h-22h'})
+    @ApiProperty({example: "10h-22h"})
     @IsString()
     horaires: string;
 }

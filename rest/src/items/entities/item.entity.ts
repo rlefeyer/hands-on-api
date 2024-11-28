@@ -1,21 +1,21 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
 import {Restaurant} from "../../restaurants/entities/restaurant.entity";
-import {Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Item {
 
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({type: "varchar", length: 30})
-    @ApiProperty({example: 'MaxiBestOf'})
+    @ApiProperty({example: "MaxiBestOf"})
     @IsString()
     name: string;
 
     @Column({type: "varchar", length: 255})
-    @ApiProperty({example: 'Le meilleur menu de chez McDo'})
+    @ApiProperty({example: "Le meilleur menu de chez McDo"})
     @IsString()
     description: string;
 
@@ -25,7 +25,22 @@ export class Item {
     prix: number;
 
     @OneToMany(() => Restaurant, restaurant => restaurant.id)
-    @ApiProperty({example: { name: 'McDo', description: 'Le meilleur fast-food', adresse: '5 rue de la paix', menu: [{id: '1', name: 'MaxiBestOf', description: 'Le meilleur menu de chez McDo', prix: 10, restaurant: 'McDo'}], note: 10, horaires: '10h-22h'}})
+    @ApiProperty({
+        example: {
+            name: "McDo",
+            description: "Le meilleur fast-food",
+            adresse: "5 rue de la paix",
+            menu: [{
+                id: 1,
+                name: "MaxiBestOf",
+                description: "Le meilleur menu de chez McDo",
+                prix: 10,
+                restaurant: "McDo",
+            }],
+            note: 10,
+            horaires: "10h-22h",
+        },
+    })
     @IsString()
     restaurant: Restaurant;
 }
