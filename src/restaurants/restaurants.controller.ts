@@ -6,74 +6,74 @@ import {
   Patch,
   Param,
   Delete,
-} from '@nestjs/common';
-import { RestaurantsService } from './restaurants.service';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+} from "@nestjs/common";
+import { RestaurantsService } from "./restaurants.service";
+import { CreateRestaurantDto } from "./dto/create-restaurant.dto";
+import { UpdateRestaurantDto } from "./dto/update-restaurant.dto";
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
 
-@ApiTags('Restaurants')
-@Controller('restaurants')
+@ApiTags("Restaurants")
+@Controller("restaurants")
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new restaurant' })
+  @ApiOperation({ summary: "Create a new restaurant" })
   @ApiResponse({
     status: 201,
-    description: 'Restaurant has been successfully created.',
+    description: "Restaurant has been successfully created.",
   })
-  @ApiResponse({ status: 400, description: 'Invalid data provided.' })
+  @ApiResponse({ status: 400, description: "Invalid data provided." })
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retrieve all restaurants' })
+  @ApiOperation({ summary: "Retrieve all restaurants" })
   @ApiResponse({
     status: 200,
-    description: 'Successfully retrieved all restaurants.',
+    description: "Successfully retrieved all restaurants.",
   })
   findAll() {
     return this.restaurantsService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Retrieve a restaurant by ID' })
-  @ApiParam({ name: 'id', description: 'The ID of the restaurant to retrieve' })
+  @Get(":id")
+  @ApiOperation({ summary: "Retrieve a restaurant by ID" })
+  @ApiParam({ name: "id", description: "The ID of the restaurant to retrieve" })
   @ApiResponse({
     status: 200,
-    description: 'The restaurant with the given ID.',
+    description: "The restaurant with the given ID.",
   })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
-  findOne(@Param('id') id: string) {
+  @ApiResponse({ status: 404, description: "Restaurant not found." })
+  findOne(@Param("id") id: string) {
     return this.restaurantsService.findOne(+id);
   }
 
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update a restaurant by ID' })
-  @ApiParam({ name: 'id', description: 'The ID of the restaurant to update' })
+  @Patch(":id")
+  @ApiOperation({ summary: "Update a restaurant by ID" })
+  @ApiParam({ name: "id", description: "The ID of the restaurant to update" })
   @ApiResponse({
     status: 200,
-    description: 'The restaurant has been successfully updated.',
+    description: "The restaurant has been successfully updated.",
   })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
+  @ApiResponse({ status: 404, description: "Restaurant not found." })
   update(
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body() updateRestaurantDto: UpdateRestaurantDto,
   ) {
     return this.restaurantsService.update(+id, updateRestaurantDto);
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete a restaurant by ID' })
-  @ApiParam({ name: 'id', description: 'The ID of the restaurant to delete' })
+  @Delete(":id")
+  @ApiOperation({ summary: "Delete a restaurant by ID" })
+  @ApiParam({ name: "id", description: "The ID of the restaurant to delete" })
   @ApiResponse({
     status: 200,
-    description: 'The restaurant has been successfully removed.',
+    description: "The restaurant has been successfully removed.",
   })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
-  remove(@Param('id') id: string) {
+  @ApiResponse({ status: 404, description: "Restaurant not found." })
+  remove(@Param("id") id: string) {
     return this.restaurantsService.remove(+id);
   }
 }

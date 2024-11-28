@@ -1,5 +1,5 @@
-import { Restaurant } from '../../restaurants/entities/restaurant.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { Restaurant } from "../../restaurants/entities/restaurant.entity";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class Menu {
   @ApiProperty()
