@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import {Injectable} from "@nestjs/common";
+import {CreateRestaurantDto} from "./dto/create-restaurant.dto";
+import {UpdateRestaurantDto} from "./dto/update-restaurant.dto";
+import {Repository} from "typeorm";
+import {Restaurant} from "./entities/restaurant.entity";
+import {InjectRepository} from "@nestjs/typeorm";
 
 @Injectable()
 export class RestaurantsService {
-  create(createRestaurantDto: CreateRestaurantDto) {
-    return 'This action adds a new restaurant';
-  }
+    constructor(
+        @InjectRepository(Restaurant) private readonly restaurantRepository: Repository<Restaurant>,
+    ) {
+    }
 
-  findAll() {
-    return `This action returns all restaurants`;
-  }
+    create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
+        return this.restaurantRepository.save(createRestaurantDto);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} restaurant`;
-  }
+    findAll(query: any): Promise<Restaurant[]> {
+        return this.restaurantRepository.find({
+            where: {name: query.filter},
+            order: {name: query.sort},
+            take: query.limit,
+            skip: query.limit * (query.page - 1),
+        });
+    }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
-  }
+    findOne(id: string): Promise<Restaurant> {
+        return this.restaurantRepository.findOne({where: {id}});
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} restaurant`;
-  }
+    async update(id: string, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
+        return this.restaurantRepository.update(id, updateRestaurantDto).then(() => {
+            return this.restaurantRepository.findOne({where: {id}});
+        });
+    }
+
+    async remove(id: string): Promise<boolean> {
+        return this.restaurantRepository.delete(id).then((item) => {
+            return item.affected >= 1;
+        });
+    }
 }

@@ -14,11 +14,7 @@ export class UserService {
     }
 
     create(createUserDto: CreateUserDto): Promise<User> {
-        const user: User = new User();
-        user.name = createUserDto.name;
-        user.adresse = createUserDto.adresse;
-        user.telephone = createUserDto.telephone;
-        return this.userRepository.save(user);
+        return this.userRepository.save(createUserDto);
     }
 
     findAll(): Promise<User[]> {
@@ -38,7 +34,7 @@ export class UserService {
             return this.userRepository.findOne({where: {id}});
         });
     }
-    
+
     async remove(id: string): Promise<boolean> {
         return this.userRepository.delete(id).then((item) => {
             return item.affected >= 1;

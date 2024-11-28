@@ -1,35 +1,54 @@
 import {Menu} from "../../menus/entities/menu.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsObject, IsString} from "class-validator";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
+@Entity()
 export class Restaurant {
+
+    @PrimaryGeneratedColumn()
     id: string;
 
-    @ApiProperty({example: 'McDo'})
+    @Column({type: "varchar", length: 30})
+    @ApiProperty({example: "McDo"})
     @IsString()
     name: string;
 
-    @ApiProperty({example: 'Le meilleur fast-food'})
+    @Column({type: "varchar", length: 255})
+    @ApiProperty({example: "Le meilleur fast-food"})
     @IsString()
     description: string;
 
-    @ApiProperty({example: 'fast-food'})
+    @Column({type: "varchar", length: 50})
+    @ApiProperty({example: "fast-food"})
     @IsString()
     categorie: string;
 
-    @ApiProperty({example: '5 rue de la paix'})
+    @Column({type: "varchar", length: 50})
+    @ApiProperty({example: "5 rue de la paix"})
     @IsString()
     adresse: string;
 
-    @ApiProperty({example: [{id: '1', name: 'MaxiBestOf', description: 'Le meilleur menu de chez McDo', prix: 10, restaurant: 'McDo'}]})
+    @Column({type: "json"})
+    @ApiProperty({
+        example: [{
+            id: "1",
+            name: "MaxiBestOf",
+            description: "Le meilleur menu de chez McDo",
+            prix: 10,
+            restaurant: "McDo",
+        }],
+    })
     @IsObject()
     menu: Menu[];
 
+    @Column({type: "int"})
     @ApiProperty({example: 10})
     @IsString()
     note: number;
 
-    @ApiProperty({example: '10h-22h'})
+    @Column({type: "varchar", length: 25})
+    @ApiProperty({example: "10h-22h"})
     @IsString()
     horaires: string;
 }
