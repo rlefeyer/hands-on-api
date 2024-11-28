@@ -4,6 +4,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import {ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Menu} from "../menus/entities/menu.entity";
+import {Item} from "./entities/item.entity";
 
 @ApiTags('Items')
 @Controller('items')
@@ -25,13 +26,13 @@ export class ItemsController {
   @Get(':id')
   @ApiResponse({status: 200, description: 'The item has been successfully returned.', type: Menu})
   findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(+id);
+    return this.itemsService.findOne(id);
   }
 
   @Patch(':id')
   @ApiResponse({status: 200, description: 'The item has been successfully updated.', type: Menu})
   update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemsService.update(+id, updateItemDto);
+    return this.itemsService.update(id, updateItemDto);
   }
 
   @Delete(':id')
@@ -39,6 +40,6 @@ export class ItemsController {
   @ApiResponse({status: 403, description: 'Forbidden item.'})
   @ApiResponse({status: 404, description: 'Item not found.'})
   remove(@Param('id') id: string) {
-    return this.itemsService.remove(+id);
+    return this.itemsService.remove(id);
   }
 }

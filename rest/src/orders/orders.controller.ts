@@ -46,39 +46,39 @@ export class OrdersController {
   @ApiOperation({ deprecated: true })
   @ApiResponse({status: 200, description: 'The record has been successfully returned.', type: Order})
   findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+    return this.ordersService.findOne(id);
   }
 
   @Get('/v2/:id')
   @ApiResponse({status: 200, description: 'The record has been successfully returned.', type: Order})
   findOneV2(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+    return this.ordersService.findOne(id);
   }
 
   @Get(':id/menus')
   @ApiOperation({ deprecated: true })
   @ApiResponse({ status: 200, description: 'The record has been successfully returned.', type: [Menu] })
   findMenusById(@Param('id') id: string) {
-    return this.ordersService.findOne(+id)
+    return this.ordersService.findOne(id)
   }
 
   @Get(':id/menusV2')
   @ApiResponse({ status: 200, description: 'The record has been successfully returned.', type: [Menu] })
   findItemsById(@Param('id') id: string) {
-    return this.ordersService.findOne(+id)
+    return this.ordersService.findOne(id)['items']
   }
   
   @Patch(':id')
   @ApiOperation({deprecated: true})
     @ApiResponse({status: 200, description: 'The record has been successfully updated.', type: Order})
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+    return this.ordersService.update(id, updateOrderDto);
   }
 
   @Patch('/v2/:id')
   @ApiResponse({status: 200, description: 'The record has been successfully updated.', type: Order})
   updateV2(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+    return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')
@@ -87,7 +87,7 @@ export class OrdersController {
     @ApiResponse({status: 403, description: 'Forbidden.'})
     @ApiResponse({status: 404, description: 'Not Found.'})
   remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+    return this.ordersService.remove(id);
   }
 
   @Delete('/v2/:id')
@@ -95,6 +95,6 @@ export class OrdersController {
   @ApiResponse({status: 403, description: 'Forbidden.'})
   @ApiResponse({status: 404, description: 'Not Found.'})
   removeV2(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+    return this.ordersService.remove(id);
   }
 }
