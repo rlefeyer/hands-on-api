@@ -15,10 +15,10 @@ export class OrdersService {
   }
 
   create(createOrderDto: CreateOrderDto) {
-    const name = createOrderDto.Name;
-    const menus = createOrderDto.Menus;
-    const price = createOrderDto.price;
-    const User = createOrderDto.User;
+    const name = createOrderDto.name;
+    const menus = createOrderDto.menus;
+    const price = createOrderDto.prix;
+    const User = createOrderDto.user;
     return this.ordersRepository.save({name, menus, price, User});
   }
 

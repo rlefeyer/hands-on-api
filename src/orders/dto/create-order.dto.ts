@@ -5,6 +5,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class CreateOrderDto {
+
+  @ApiProperty({
+    description:'Nom de la commande'
+  })
+  name:string;
   @ApiProperty({
     description: 'Menus de la commande',
     type: [Menu],

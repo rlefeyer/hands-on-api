@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import {Menu} from "../../menus/entities/menu.entity";
 
 @Entity()
 export class Restaurant {
@@ -6,21 +7,20 @@ export class Restaurant {
   id: number;
 
   @Column()
-  Name: string;
+  name: string;
 
   @Column()
-  Description: string;
+  description: string;
 
   @Column()
-  Address: string;
+  address: string;
 
-
-  @Column("text", { array: true })
-  Menus: string[];
-
-  @Column()
-  Note: string;
+  @OneToMany(() => Menu, menu => menu.id)
+  menus: string[];
 
   @Column()
-  Schedules: string;
+  note: string;
+
+  @Column()
+  schedules: string;
 }

@@ -2,33 +2,33 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsArray } from 'class-validator';
 
 export class CreateRestaurantDto {
-  @ApiProperty({ description: 'The name of the restaurant' })
+  @ApiProperty({ description: 'Nom restaurant' })
   @IsString()
   @IsNotEmpty()
-  Name: string;
+  name: string;
 
-  @ApiProperty({ description: 'A short description of the restaurant' })
+  @ApiProperty({ description: 'Description du restaurant' })
   @IsString()
   @IsNotEmpty()
-  Description: string;
+  description: string;
 
-  @ApiProperty({ description: 'The address of the restaurant' })
+  @ApiProperty({ description: 'Adresse du restaurant' })
   @IsString()
   @IsNotEmpty()
-  Address: string;
+  address: string;
 
-  @ApiProperty({ description: 'List of menus offered by the restaurant', type: [String] })
+  @ApiProperty({ description: 'Menus du restaurant', type: [String] })
   @IsArray()
   @IsNotEmpty()
-  Menus: string[];
+  menus: string[];
 
-  @ApiProperty({ description: 'Rating or note given to the restaurant' })
+  @ApiProperty({ description: 'Note du restaurant' })
   @IsString()
   @IsNotEmpty()
-  Note: string;
+  note: string;
 
-  @ApiProperty({ description: 'Operating hours of the restaurant' })
+  @ApiProperty({ description: 'Horaires du restaurant' })
   @IsString()
   @IsNotEmpty()
-  Schedules: string;
+  schedules: string;
 }

@@ -14,12 +14,12 @@ export class RestaurantsService {
 
   async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
     const restaurant = new Restaurant();
-    restaurant.Name = createRestaurantDto.Name;
-    restaurant.Description = createRestaurantDto.Description;
-    restaurant.Address = createRestaurantDto.Address;
-    restaurant.Menus = createRestaurantDto.Menus;
-    restaurant.Note = createRestaurantDto.Note;
-    restaurant.Schedules = createRestaurantDto.Schedules;
+    restaurant.name = createRestaurantDto.name;
+    restaurant.description = createRestaurantDto.description;
+    restaurant.address = createRestaurantDto.address;
+    restaurant.menus = createRestaurantDto.menus;
+    restaurant.note = createRestaurantDto.note;
+    restaurant.schedules = createRestaurantDto.schedules;
 
     return await this.restaurantsRepository.save(restaurant);
   }

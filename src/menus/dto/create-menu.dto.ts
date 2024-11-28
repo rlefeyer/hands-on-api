@@ -9,7 +9,7 @@ export class CreateMenuDto {
     type: String
   })
   @IsString()
-  nom: string;
+  name: string;
   @ApiProperty({
     description: 'Description du menu',
     type: String
