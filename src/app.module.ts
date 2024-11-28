@@ -8,16 +8,17 @@ import {MenusModule} from "./menus/menus.module";
 import {ItemsModule} from "./items/items.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {User} from "./user/entities/user.entity";
-import "dotenv/config";
-import * as process from "node:process";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 @Module({
     imports: [OrdersModule, UserModule, RestaurantsModule, MenusModule, ItemsModule, TypeOrmModule.forRoot({
         type: "postgres",
-        host: process.env.POSTGRES_HOST,
-        port: process.env.POSTGRES_PORT,
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
+        host: process.env.DB_HOST,
+        port: +process.env.DB_PORT,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
         entities: [User],
         database: "food-delivery",
         synchronize: true,
