@@ -9,6 +9,26 @@ type User {
   phone: String!
 }
 
+type Item {
+  """L'ID de l'item"""
+  id: Int!
+
+  """Le nom de l'item"""
+  name: String!
+
+  """La description de l'item"""
+  description: String!
+
+  """Le prix de l'item"""
+  price: Float!
+
+  """La quantité disponible de l'item"""
+  quantity: Int!
+
+  """Le restaurant auquel cet item est associé"""
+  restaurant: Restaurant
+}
+
 type Restaurant {
   """Id du restaurant"""
   id: Int!
@@ -30,6 +50,9 @@ type Restaurant {
 
   """Horaires d'ouverture du restaurant"""
   hours: String!
+
+  """Items proposés par le restaurant"""
+  items: [Item!]!
 }
 
 type Query {
@@ -37,21 +60,6 @@ type Query {
   user(id: Int!): User!
   users: [User!]!
   restaurant(id: Int!): Restaurant!
-}
-
-type Mutation {
-  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
-  updateRestaurant(updateRestaurantInput: UpdateRestaurantInput!): Restaurant!
-  removeRestaurant(id: Int!): Restaurant!
-}
-
-input CreateRestaurantInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateRestaurantInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  item(id: Int!): Item!
+  items: [Item!]!
 }

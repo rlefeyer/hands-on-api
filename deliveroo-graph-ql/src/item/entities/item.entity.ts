@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Restaurant } from '../../restaurant/entities/restaurant.entity';
 
 @Entity()
 @ObjectType()
@@ -13,7 +13,7 @@ export class Item {
   @Field(() => String, { description: "Le nom de l'item" })
   name: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   @Field(() => String, { description: "La description de l'item" })
   description: string;
 

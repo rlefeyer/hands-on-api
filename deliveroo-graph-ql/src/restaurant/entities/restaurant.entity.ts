@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Item } from '../../item/entities/item.entity';
 
 @Entity()
 @ObjectType()
@@ -34,4 +35,8 @@ export class Restaurant {
   @Column({ length: 100 })
   @Field(() => String, { description: "Horaires d'ouverture du restaurant" })
   hours: string;
+
+  @OneToMany(() => Item, (item) => item.restaurant, { cascade: true })
+  @Field(() => [Item], { description: 'Items proposés par le restaurant' })
+  items: Item[];
 }

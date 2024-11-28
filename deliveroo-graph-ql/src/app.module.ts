@@ -9,6 +9,8 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { ItemModule } from './item/item.module';
+import { Restaurant } from './restaurant/entities/restaurant.entity';
+import { Item } from './item/entities/item.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { ItemModule } from './item/item.module';
       port: 5432,
       password: 'localhost',
       username: 'distrib',
-      entities: [User],
+      entities: [User, Restaurant, Item],
       database: 'postgres',
       synchronize: true,
       logging: true,
