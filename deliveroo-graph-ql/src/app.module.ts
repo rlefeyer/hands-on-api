@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { RestaurantModule } from './restaurant/restaurant.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { User } from './user/entities/user.entity';
       synchronize: true,
       logging: true,
     }),
+    RestaurantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
