@@ -9,8 +9,49 @@ type User {
   phone: String!
 }
 
+type Restaurant {
+  """Id du restaurant"""
+  id: Int!
+
+  """Nom du restaurant"""
+  name: String!
+
+  """Description du restaurant"""
+  description: String
+
+  """Adresse du restaurant"""
+  address: String!
+
+  """Catégorie du restaurant"""
+  category: String!
+
+  """Note moyenne du restaurant"""
+  rating: Float!
+
+  """Horaires d'ouverture du restaurant"""
+  hours: String!
+}
+
 type Query {
   helloWorld: String!
   user(id: Int!): User!
   users: [User!]!
+  restaurant(id: Int!): Restaurant!
+}
+
+type Mutation {
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  updateRestaurant(updateRestaurantInput: UpdateRestaurantInput!): Restaurant!
+  removeRestaurant(id: Int!): Restaurant!
+}
+
+input CreateRestaurantInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateRestaurantInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

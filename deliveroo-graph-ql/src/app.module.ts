@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { RestaurantModule } from './restaurant/restaurant.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RestaurantModule } from './restaurant/restaurant.module';
       logging: true,
     }),
     RestaurantModule,
+    ItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],
