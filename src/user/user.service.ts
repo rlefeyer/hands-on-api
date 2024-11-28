@@ -38,7 +38,7 @@ export class UserService {
             return this.userRepository.findOne({where: {id}});
         });
     }
-
+    
     async remove(id: string): Promise<boolean> {
         return this.userRepository.delete(id).then((item) => {
             return item.affected >= 1;
