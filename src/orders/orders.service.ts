@@ -1,47 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import {Menu} from "../menus/entities/menu.entity";
-import {ApiProperty} from "@nestjs/swagger";
-import {IsNumber, IsObject} from "class-validator";
-import {User} from "../users/entities/user.entity";
-
-interface Order {
-    id: number;
-    name: string;
-    price: number;
-}
+import {InjectRepository} from "@nestjs/typeorm";
+import {Order} from "./entities/order.entity";
+import {Repository} from "typeorm";
 
 @Injectable()
 export class OrdersService {
-  private orders: (CreateOrderDto&{id:number})[] = [];
+
+  constructor(
+    @InjectRepository(Order)
+    private readonly ordersRepository: Repository<Order>
+  ) {
+  }
+
   create(createOrderDto: CreateOrderDto) {
-    this.orders.push({
-        id: this.orders.length + 1,
-        ...createOrderDto
-    });
-    return createOrderDto;
+    const name = createOrderDto.Name;
+    const menus = createOrderDto.Menus;
+    const price = createOrderDto.price;
+    const User = createOrderDto.User;
+    return this.ordersRepository.save({name, menus, price, User});
   }
 
   findAll() {
-    return this.orders;
+    return `This action returns all orders`;
   }
 
   findOne(id: number) {
-    return this.orders.find(order => order.id === id);
+    return `This action returns a #${id} order`;
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
-    const order = this.orders.find(order => order.id === id);
-    if (order) {
-        Object.assign(order, updateOrderDto);
-        return order;
-    }
-    return null;
+    return `This action updates a #${id} order`;
   }
 
   remove(id: number) {
-    this.orders = this.orders.filter(order => order.id !== id);
-    return true;
+    return `This action removes a #${id} order`;
   }
 }

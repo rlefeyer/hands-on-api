@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import {InjectRepository} from "@nestjs/typeorm";
+import {Menu} from "./entities/menu.entity";
+import {Repository} from "typeorm";
 
 @Injectable()
 export class MenusService {
+
+  constructor(
+      @InjectRepository(Menu)
+        private readonly menusRepository: Repository<Menu>
+  ) {
+  }
+
   create(createMenuDto: CreateMenuDto) {
-    return 'This action adds a new menu';
+    const name = createMenuDto.Name;
+    const description = createMenuDto.Description;
+    const price = createMenuDto.price;
+    const Restaurant = createMenuDto.Restaurant;
+    return this.menusRepository.save({name, description, price, Restaurant});
   }
 
   findAll() {
