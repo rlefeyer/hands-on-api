@@ -35,4 +35,9 @@ export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
   @IsString()
   @ApiPropertyOptional({ description: 'The opening hours of the restaurant', example: 'Mon-Fri 9am-9pm' })
   hours?: string;
+
+  @IsInt()
+  @IsNotEmpty()
+  @ApiProperty({ description: 'The ID of the category associated with the restaurant', example: 1 })
+  categoryId: number;
 }

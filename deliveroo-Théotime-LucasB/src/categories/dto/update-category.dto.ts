@@ -9,13 +9,12 @@ export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
     @ApiPropertyOptional({ description: 'The unique identifier of the category', example: 1 })
     id?: number;
 
-    @IsOptional()
     @IsString()
     @ApiProperty({ description: 'The name of the category', example: 'Italian' })
-    name?: string;
+    name: string;
 
     @IsOptional()
     @IsString()
-    @ApiProperty({ description: 'The description of the category', example: 'Italian cuisine' })
+    @ApiPropertyOptional({ description: 'The description of the category', example: 'Italian cuisine' })
     description?: string;
 }

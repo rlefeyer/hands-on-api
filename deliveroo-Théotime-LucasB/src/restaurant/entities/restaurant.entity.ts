@@ -1,5 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Menu } from 'src/menu/entities/menu.entity';
+import { Item } from 'src/items/entities/item.entity';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Entity()
 export class Restaurant {
@@ -26,6 +29,18 @@ export class Restaurant {
   @Column({ length: 100 })
   @ApiPropertyOptional({ description: 'The opening hours of the restaurant', example: 'Mon-Fri 9am-9pm' })
   hours?: string;
+  
+  @OneToMany(() => Menu, (menu) => menu.restaurant)
+  @ApiProperty({ description: 'The menu associated with the restaurant', type: () => Menu })
+  menu: Menu[]
+
+  @OneToMany(() => Item, (item) => item.restaurant)
+  @ApiProperty({ description: 'The item associated with the restaurant', type: () => Menu })
+  items: Item[]
+
+  @ManyToOne(() => Category, (category => category.restaurants), { nullable: false })
+  @ApiProperty({ description: 'The category associated with the restaurant', type: () => Category })
+  category: Category;
 
   constructor(id: number, name: string, address: string, description?: string, rating?: number, hours?: string) {
     this.id = id;

@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Commande } from '../../commande/entities/commande-v2.entity';
 
 @Entity()
 export class User {
@@ -19,7 +20,11 @@ export class User {
   @ApiProperty({ description: 'The telephone number of the user', example: '+1234567890' })
   telephone: string;
 
-  constructor(id: number, name: string, address: string, telephone: string) { 
+  @OneToMany(() => Commande, (commande) => commande.user)
+  @ApiProperty({ description: 'The commande associated with the user', type: () => Commande })
+  commandes: Commande[]
+
+  constructor(id: number, name: string, address: string, telephone: string) {   
     this.id = id;
     this.name = name;
     this.address = address;

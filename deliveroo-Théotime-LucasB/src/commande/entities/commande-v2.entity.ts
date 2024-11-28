@@ -1,18 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../user/entities/user.entity';
 import { Item } from '../../items/entities/item.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, JoinTable, ManyToOne } from 'typeorm';
 
-export class CommandeV2 {
+@Entity()
+export class Commande {
+  @PrimaryGeneratedColumn()
   @ApiProperty({ description: 'The unique identifier of the commande', example: 1 })
   id: number;
 
+  @ManyToMany(() => Item)
+  @JoinTable()
   @ApiProperty({ description: 'The list of items in the commande', type: [Item] })
-  items: Item[];
+  items: Item[]
 
+  @Column({type: "float"})
   @ApiProperty({ description: 'The total price of the commande', example: 49.99 })
   prix: number;
 
-  @ApiProperty({ description: 'The user who placed the commande', type: User })
+  @ManyToOne(() => User, (user) => user.commandes, {nullable: false})
+  @ApiProperty({ description: 'The user who placed the commande', type: () => User })
   user: User;
 
   constructor(id: number, items: Item[], prix: number, user: User) {

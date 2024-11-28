@@ -1,31 +1,29 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMenuDto } from './create-menu.dto';
-import { IsString, IsInt, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsInt, IsNumber, IsOptional, IsNotEmpty } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class UpdateMenuDto extends PartialType(CreateMenuDto) {
+export class UpdateMenuDto {
   @IsOptional()
   @IsInt()
   @ApiProperty({ description: 'The unique identifier of the menu', example: 1 })
   id?: number;
 
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({ description: 'The name of the menu', example: 'Lunch Menu' })
-  name?: string;
+  name: string;
 
   @IsOptional()
   @IsString()
   @ApiPropertyOptional({ description: 'The description of the menu', example: 'A selection of lunch items' })
   description?: string;
 
-  @IsOptional()
   @IsNumber()
+  @IsNotEmpty()
   @ApiProperty({ description: 'The price of the menu', example: 19.99 })
-  price?: number;
+  price: number;
 
-  @IsOptional()
   @IsInt()
+  @IsNotEmpty()
   @ApiProperty({ description: 'The ID of the restaurant associated with the menu', example: 1 })
   restaurantId: number;
 }

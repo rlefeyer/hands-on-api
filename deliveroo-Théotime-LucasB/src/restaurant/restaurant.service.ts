@@ -4,17 +4,21 @@ import { Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Injectable()
 export class RestaurantService {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>
   ){}
 
   async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
     try {
-      const newRestaurant = this.restaurantRepository.create(createRestaurantDto);
+      const category = await this.categoryRepository.findOneBy({id: createRestaurantDto.categoryId});
+      const newRestaurant = this.restaurantRepository.create({...createRestaurantDto, category});
       return await this.restaurantRepository.save(newRestaurant);
     } catch (error) {
       throw new InternalServerErrorException('Failed to create restaurant');
@@ -43,7 +47,9 @@ export class RestaurantService {
 
   async update(id: number, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
     try {
-      await this.restaurantRepository.update(id, updateRestaurantDto);
+      const category = await this.categoryRepository.findOneBy({id: updateRestaurantDto.categoryId});
+      delete updateRestaurantDto.categoryId;
+      await this.restaurantRepository.update(id, {...updateRestaurantDto, category});
       const updatedRestaurant = await this.findOne(id);
       if (!updatedRestaurant) {
         throw new NotFoundException(`User with ID ${id} not found`);
