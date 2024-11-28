@@ -36,9 +36,9 @@ export class UsersController {
       validUser: {
         summary: 'A valid user creation example',
         value: {
-          username: 'johndoe',
-          email: 'johndoe@example.com',
-          password: 'password123',
+          name: 'John Doe',
+          address: '123 Main St, Anytown, USA',
+          phone: '+6666666666',
         },
       },
     },
@@ -50,8 +50,9 @@ export class UsersController {
     schema: {
       example: {
         id: '123e4567-e89b-12d3-a456-426614174000',
-        username: 'johndoe',
-        email: 'johndoe@example.com',
+        name: 'John Doe',
+        address: '123 Main St, Anytown, USA',
+        phone: '+6666666666',
         createdAt: '2023-01-01T12:00:00Z',
       },
     },
@@ -62,7 +63,7 @@ export class UsersController {
     schema: {
       example: {
         statusCode: 400,
-        message: ['email must be an email'],
+        message: ['name must be a string', 'address must be a string'],
         error: 'Bad Request',
       },
     },
@@ -92,7 +93,7 @@ export class UsersController {
       },
     },
   })
-  findAll(): User[] {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
@@ -118,7 +119,7 @@ export class UsersController {
       },
     },
   })
-  findOne(@Param('id') id: string): User {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
   }
 
@@ -143,7 +144,7 @@ export class UsersController {
     schema: {
       example: {
         statusCode: 400,
-        message: ['email must be an email'],
+        message: ['name must be a string', 'address must be a string'],
         error: 'Bad Request',
       },
     },
@@ -152,7 +153,10 @@ export class UsersController {
     status: 404,
     description: 'User not found.',
   })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): User {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return this.usersService.update(id, updateUserDto);
   }
 
@@ -183,7 +187,7 @@ export class UsersController {
       },
     },
   })
-  remove(@Param('id') id: string): boolean {
+  remove(@Param('id') id: string): Promise<boolean> {
     return this.usersService.remove(id);
   }
 }
