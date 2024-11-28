@@ -11,6 +11,7 @@ import { RestaurantModule } from './restaurant/restaurant.module';
 import { ItemModule } from './item/item.module';
 import { Restaurant } from './restaurant/entities/restaurant.entity';
 import { Item } from './item/entities/item.entity';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { Item } from './item/entities/item.entity';
     }),
     RestaurantModule,
     ItemModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
