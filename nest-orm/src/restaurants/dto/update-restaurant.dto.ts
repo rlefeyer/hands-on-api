@@ -1,23 +1,39 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateRestaurantDto } from './create-restaurant.dto';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
-  @ApiPropertyOptional({ description: 'The name of the restaurant (optional)' })
-  Name?: string;
+  @ApiProperty({ description: 'The name of the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Name: string;
 
-  @ApiPropertyOptional({ description: 'A short description of the restaurant (optional)' })
-  Description?: string;
+  @ApiProperty({ description: 'A short description of the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Description: string;
 
-  @ApiPropertyOptional({ description: 'The address of the restaurant (optional)' })
-  Address?: string;
+  @ApiProperty({ description: 'The address of the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Address: string;
 
-  @ApiPropertyOptional({ description: 'List of menus offered by the restaurant (optional)', type: [String] })
-  Menus?: string[];
+  @ApiProperty({
+    description: 'List of menus offered by the restaurant',
+    type: [String],
+  })
+  @IsArray()
+  @IsNotEmpty()
+  Menus: string[];
 
-  @ApiPropertyOptional({ description: 'Rating or note given to the restaurant (optional)' })
-  Note?: string;
+  @ApiProperty({ description: 'Rating or note given to the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Note: string;
 
-  @ApiPropertyOptional({ description: 'Operating hours of the restaurant (optional)' })
-  schedules?: string;
+  @ApiProperty({ description: 'Operating hours of the restaurant' })
+  @IsString()
+  @IsNotEmpty()
+  Schedules: string;
 }
