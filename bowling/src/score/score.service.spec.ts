@@ -71,4 +71,44 @@ describe('ScoreService', () => {
       ]),
     ).toBe(43);
   });
+
+  it('should return 11', () => {
+    expect(
+      service.calculate([
+        10, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(11);
+  });
+
+  it('should return 19', () => {
+    expect(
+      service.calculate([
+        10, 2, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(19);
+  });
+
+  it('should return 20', () => {
+    expect(
+      service.calculate([
+        10, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(20);
+  });
+
+  it('should return 42', () => {
+    expect(
+      service.calculate([
+        10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(42);
+  });
+
+  it('should return 60', () => {
+    expect(
+      service.calculate([
+        10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(60);
+  });
 });
