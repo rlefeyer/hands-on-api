@@ -14,12 +14,14 @@ export class MenusService {
   ) {
   }
 
-  create(createMenuDto: CreateMenuDto) {
-    const name = createMenuDto.name;
-    const description = createMenuDto.description;
-    const price = createMenuDto.price;
-    const restaurant = createMenuDto.restaurant;
-    return this.menusRepository.save({name, description, price, restaurant});
+  async create(createMenuDto: CreateMenuDto): Promise<Menu> {
+    const menu = new Menu();
+    menu.name = createMenuDto.name;
+    menu.description = createMenuDto.description;
+    menu.price = createMenuDto.price;
+    menu.restaurant = createMenuDto.restaurant;
+
+    return await this.menusRepository.save(menu);
   }
 
   findAll() {

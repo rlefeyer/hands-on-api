@@ -4,7 +4,6 @@ import { OrdersService } from "./orders.service";
 import { CreateOrderDto} from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 
-// Mock du service RestaurantsService
 const mockOrderService = {
     create: jest.fn(),
     findAll: jest.fn(),
