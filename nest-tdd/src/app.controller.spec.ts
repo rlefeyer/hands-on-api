@@ -51,4 +51,24 @@ describe('AppController', () => {
     const frames = [10, 2, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     expect(appController.calculateScore(frames)).toBe(19);
   });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(20);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(42);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(60);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0];
+    expect(appController.calculateScore(frames)).toBe(52);
+  });
 });
