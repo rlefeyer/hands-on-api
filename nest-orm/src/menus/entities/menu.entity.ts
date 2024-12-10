@@ -6,14 +6,14 @@ export class Menu {
   id: number;
 
   @Column()
-  Name: string;
+  name: string;
 
   @Column()
-  Description: string;
+  description: string;
 
   @Column()
   price: string;
 
   @Column()
-  Restaurant: string;
+  restaurant: string;
 }

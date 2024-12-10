@@ -11,15 +11,14 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private readonly ordersRepository: Repository<Order>
-  ) {
-  }
+  ) {}
 
   create(createOrderDto: CreateOrderDto) {
-    const name = createOrderDto.Name;
-    const menus = createOrderDto.Menus;
+    const name = createOrderDto.name;
+    const menus = createOrderDto.menus;
     const price = createOrderDto.price;
-    const User = createOrderDto.User;
-    return this.ordersRepository.save({name, menus, price, User});
+    const user = createOrderDto.user;
+    return this.ordersRepository.save({name, menus, price, user});
   }
 
   findAll() {

@@ -5,12 +5,12 @@ export class CreateMenuDto {
   @ApiProperty({ description: 'The name of the menu item' })
   @IsString()
   @IsNotEmpty()
-  Name: string;
+  name: string;
 
   @ApiProperty({ description: 'A short description of the menu item' })
   @IsString()
   @IsNotEmpty()
-  Description: string;
+  description: string;
 
   @ApiProperty({ description: 'The price of the menu item' })
   @IsString()
@@ -20,5 +20,5 @@ export class CreateMenuDto {
   @ApiProperty({ description: 'The associated restaurant of the menu' })
   @IsString()
   @IsNotEmpty()
-  Restaurant: string;
+  restaurant: string;
 }

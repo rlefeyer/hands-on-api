@@ -5,12 +5,12 @@ export class CreateOrderDto {
   @ApiProperty({ description: 'The name of the order' })
   @IsString()
   @IsNotEmpty()
-  Name: string;
+  name: string;
 
   @ApiProperty({ description: 'List of menus included in the order', type: [String] })
   @IsArray()
   @IsNotEmpty()
-  Menus: string[];
+  menus: string[];
 
   @ApiProperty({ description: 'The total price of the order' })
   @IsString()
@@ -20,5 +20,5 @@ export class CreateOrderDto {
   @ApiProperty({ description: 'The user who placed the order' })
   @IsString()
   @IsNotEmpty()
-  User: string;
+  user: string;
 }

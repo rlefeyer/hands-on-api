@@ -15,11 +15,11 @@ export class MenusService {
   }
 
   create(createMenuDto: CreateMenuDto) {
-    const name = createMenuDto.Name;
-    const description = createMenuDto.Description;
+    const name = createMenuDto.name;
+    const description = createMenuDto.description;
     const price = createMenuDto.price;
-    const Restaurant = createMenuDto.Restaurant;
-    return this.menusRepository.save({name, description, price, Restaurant});
+    const restaurant = createMenuDto.restaurant;
+    return this.menusRepository.save({name, description, price, restaurant});
   }
 
   findAll() {
