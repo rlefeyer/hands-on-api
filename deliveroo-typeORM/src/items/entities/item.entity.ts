@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Restaurant } from '../../restaurants/entities/restaurant.entity';
 import {
   Column,
   Entity,

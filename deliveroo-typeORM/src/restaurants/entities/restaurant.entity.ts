@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Item } from 'src/items/entities/item.entity';
+import { Item } from '../../items/entities/item.entity';
 
 @Entity()
 export class Restaurant {
