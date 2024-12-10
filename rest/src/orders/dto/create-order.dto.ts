@@ -1,4 +1,4 @@
-import { User } from "src/user/entities/user.entity";
+import {User} from "../../user/entities/user.entity";
 import {Menu} from "../../menus/entities/menu.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNumber, IsObject} from "class-validator";

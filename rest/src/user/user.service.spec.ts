@@ -5,6 +5,7 @@ import {UserController} from "./user.controller";
 
 describe("UserService", () => {
     let userService: UserService;
+    let userController: UserController;
 
     const user: User = {
         id: 1,
@@ -31,6 +32,7 @@ describe("UserService", () => {
         }).compile();
 
         userService = module.get<UserService>(UserService);
+        userController = module.get<UserController>(UserController);
     });
 
     describe("findAll", () => {
