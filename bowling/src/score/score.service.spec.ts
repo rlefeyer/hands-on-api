@@ -47,4 +47,28 @@ describe('ScoreService', () => {
   it('should return 0 when empty', () => {
     expect(service.calculate([])).toBe(0);
   });
+
+  it('should return 10', () => {
+    expect(
+      service.calculate([
+        1, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(10);
+  });
+
+  it('should return 18', () => {
+    expect(
+      service.calculate([
+        1, 9, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(18);
+  });
+
+  it('should return 43', () => {
+    expect(
+      service.calculate([
+        1, 9, 7, 3, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]),
+    ).toBe(43);
+  });
 });
