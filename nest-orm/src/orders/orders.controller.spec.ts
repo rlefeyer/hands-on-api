@@ -47,11 +47,12 @@ describe('OrdersController', () => {
     });
 
     describe('findAll', () => {
-        it('should return all order', async () => {
-            const order = [{ id: 1, name: 'John Doe' }];
-            mockOrderService.findAll.mockResolvedValue(order);
-            const result = controller.findAll();
-            expect(result).toEqual(order);
+        it('should return all orders', async () => {
+            const orders = [{ id: 1, name: 'John Doe' }];
+            mockOrderService.findAll.mockResolvedValue(orders);
+
+            const result = await controller.findAll();
+            expect(result).toEqual(orders);
             expect(mockOrderService.findAll).toHaveBeenCalled();
         });
     });
@@ -60,7 +61,8 @@ describe('OrdersController', () => {
         it('should return one order', async () => {
             const order = { id: 1, name: 'John Doe' };
             mockOrderService.findOne.mockResolvedValue(order);
-            const result = controller.findOne('1');
+
+            const result = await controller.findOne('1');
             expect(result).toEqual(order);
             expect(mockOrderService.findOne).toHaveBeenCalledWith(1);
         });
@@ -75,7 +77,8 @@ describe('OrdersController', () => {
             };
             const updatedOrder = { id: 1, ...updateOrderDto };
             mockOrderService.update.mockResolvedValue(updatedOrder);
-            const result = controller.update('1', updateOrderDto);
+
+            const result = await controller.update('1', updateOrderDto);
             expect(result).toEqual(updatedOrder);
             expect(mockOrderService.update).toHaveBeenCalledWith(1, updateOrderDto);
         });
@@ -84,7 +87,8 @@ describe('OrdersController', () => {
     describe('remove', () => {
         it('should remove a order', async () => {
             mockOrderService.remove.mockResolvedValue({ message: 'Order deleted' });
-            const result = controller.remove('1');
+
+            const result = await controller.remove('1');
             expect(result).toEqual({ message: 'Order deleted' });
             expect(mockOrderService.remove).toHaveBeenCalledWith(1);
         });

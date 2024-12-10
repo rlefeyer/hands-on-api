@@ -6,14 +6,14 @@ export class Order {
   id: number;
 
   @Column()
-  Name: string;
+  name: string;
 
   @Column("text", { array: true })
-  Menus: string[];
+  menus: string[];
 
   @Column()
   price: string;
 
   @Column()
-  User: string;
+  user: string;
 }

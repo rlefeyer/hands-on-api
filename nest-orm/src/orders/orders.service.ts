@@ -13,12 +13,14 @@ export class OrdersService {
     private readonly ordersRepository: Repository<Order>
   ) {}
 
-  create(createOrderDto: CreateOrderDto) {
-    const name = createOrderDto.name;
-    const menus = createOrderDto.menus;
-    const price = createOrderDto.price;
-    const user = createOrderDto.user;
-    return this.ordersRepository.save({name, menus, price, user});
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const order = new Order();
+    order.name = createOrderDto.name;
+    order.menus = createOrderDto.menus;
+    order.price = createOrderDto.price;
+    order.user = createOrderDto.user;
+
+    return await this.ordersRepository.save(order);
   }
 
   findAll() {
