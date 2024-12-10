@@ -85,6 +85,11 @@ describe('RestaurantsController', () => {
     it('should update and return a restaurant', async () => {
       const updateRestaurantDto: UpdateRestaurantDto = {
         Name: 'Updated Pizza Palace',
+        Description: 'A place for the best pizza',
+        Address: '123 Pizza St',
+        Menus: ['Pizza Margherita', 'Pizza Pepperoni'],
+        Note: '5',
+        Schedules: 'Mon-Sun 10:00-22:00',
       };
       const updatedRestaurant = { id: 1, Name: 'Updated Pizza Palace' };
       mockRestaurantsService.update.mockResolvedValue(updatedRestaurant);

@@ -73,6 +73,10 @@ describe('UsersController', () => {
       const updateUserDto: UpdateUserDto = {
         name: 'John Updated',
         username: 'johnupdated',
+        email: 'john@john.com',
+        age : 30,
+        password: 'password',
+        gender: 'm'
       };
       const updatedUser = { id: 1, ...updateUserDto };
       mockUserService.update.mockResolvedValue(updatedUser);
