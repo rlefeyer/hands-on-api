@@ -14,9 +14,13 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
+  it('should calculate the total score for a game', () => {
+    const frames = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    expect(appController.calculateScore(frames)).toBe(1);
+  })
+
+  it('should calculate the total score for a game', () => {
+    const frames = [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    expect(appController.calculateScore(frames)).toBe(2);
+  })
 });
