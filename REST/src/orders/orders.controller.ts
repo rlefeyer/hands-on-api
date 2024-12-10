@@ -102,6 +102,6 @@ export class OrdersController {
   })
   @ApiResponse({ status: 404, description: "Order not found." })
   findItems(@Param("id") id: string) {
-    return this.ordersService.findItems(id);
+    //return this.ordersService.findItems(id);
   }
 }
