@@ -11,6 +11,6 @@ export class Menu {
   description: string;
   @Column()
   prix: number;
-  @ManyToOne(() => Restaurant, restaurant => restaurant.id)
-  restaurant: Restaurant
+  @Column()
+  restaurant: string;
 }

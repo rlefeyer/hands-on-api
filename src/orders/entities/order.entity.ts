@@ -6,10 +6,12 @@ import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "type
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
-  @OneToMany(() => Menu, menu => menu.id)
-  menus: Menu[];
+  @Column()
+  name: string;
+  @Column()
+  menus: string[];
   @Column()
   prix: number;
-  @ManyToOne(() => User, user => user.id)
-  user: User;
+  @Column()
+  user: string;
 }

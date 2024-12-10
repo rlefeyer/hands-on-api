@@ -1,6 +1,6 @@
 import { Menu } from '../../menus/entities/menu.entity';
 import { User } from '../../users/entities/user.entity';
-import { IsArray, IsNumber, IsObject, ValidateNested } from 'class-validator';
+import {IsArray, IsNumber, IsObject, IsString, ValidateNested} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -16,8 +16,7 @@ export class CreateOrderDto {
     required: true
   })
   @ValidateNested({ each: true })
-  @Type(() => Menu)
-  menus: Menu[];
+  menus: string[];
   @ApiProperty({
     description: 'Prix de la commande',
     type: Number,
@@ -30,6 +29,6 @@ export class CreateOrderDto {
     type: User,
     required: true
   })
-  @IsObject()
-  user: User;
+  @IsString()
+  user: string;
 }
