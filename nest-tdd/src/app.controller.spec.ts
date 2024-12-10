@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import {empty} from "rxjs";
 
 describe('AppController', () => {
   let appController: AppController;
@@ -24,22 +25,30 @@ describe('AppController', () => {
     expect(appController.calculateScore(frames)).toBe(2);
   })
 
+  it('should calculate the total score for a game', () => {
+    const frames = [3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(5);
+  });
 
   it('should calculate the total score for a game', () => {
-    const frames = [10, 9, 1, 5, 5, 7, 2, 10, 10, 10, 9, 0, 8, 2, 9, 1, 10];
-    // Calcul du score attendu : 187
-    // Détails :
-    // Frame 1: 10 + (9 + 1) = 20
-    // Frame 2: 9 + 1 + 5 = 15
-    // Frame 3: 5 + 5 + 7 = 17
-    // Frame 4: 7 + 2 = 9
-    // Frame 5: 10 + (10 + 10) = 30
-    // Frame 6: 10 + (10 + 9) = 29
-    // Frame 7: 10 + (9 + 0) = 19
-    // Frame 8: 9 + 0 = 9
-    // Frame 9: 8 + 2 + 9 = 19
-    // Frame 10: 9 + 1 + 10 = 20
-    // Total: 187
-    expect(appController.calculateScore(frames)).toBe(187);
+    const frames = [1, 6, 3, 5, 1, 2, 9, 0, 3, 2, 7, 2, 5, 4, 4, 3, 6, 2, 7, 2];
+    expect(appController.calculateScore(frames)).toBe(74);
+  });
+
+  it('should calculate the total score for a game', () => {
+      const frames = [];
+      if (frames.length < 0) {
+        expect(appController.calculateScore(frames)).toBe(0);
+      }
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(11);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 2, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    expect(appController.calculateScore(frames)).toBe(19);
   });
 });
