@@ -1,34 +1,43 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 import { CreateOrderDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
+import { Order } from "./entities/order.entity";
+import {Menu} from "../menus/entities/menu.entity";
+import {Item} from "../Items/entities/item.entity";
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return "This action adds a new order";
+  constructor(
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
+  ) {}
+
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const order = this.orderRepository.create(createOrderDto);
+    return this.orderRepository.save(order);
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  async findAll(): Promise<Order[]> {
+    return this.orderRepository.find({ relations: ["user", "menus"] });
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string): Promise<Order> {
+    return this.orderRepository.findOne({ where: { id }, relations: ["user", "menus"] });
   }
 
-  update(id: string, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    await this.orderRepository.update(id, updateOrderDto);
+    return this.orderRepository.findOne({ where: { id }, relations: ["user", "menus"] });
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} order`;
+  async remove(id: string): Promise<void> {
+    await this.orderRepository.delete(id);
   }
 
-  findMenus(id: string) {
-    return `This action returns all menus for order #${id}`;
-  }
-
-  findItems(id: string) {
-    return `This action returns all items for order #${id}`;
+  async findMenus(id: string): Promise<Menu[]> {
+    const order = await this.orderRepository.findOne({ where: { id }, relations: ["menus"] });
+    return order ? order.menus : [];
   }
 }
