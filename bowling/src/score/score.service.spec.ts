@@ -111,4 +111,36 @@ describe('ScoreService', () => {
       ]),
     ).toBe(60);
   });
+
+  it('should return 52', () => {
+    expect(
+      service.calculate([
+        10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0,
+      ]),
+    ).toBe(52);
+  });
+
+  it('should return 57', () => {
+    expect(
+      service.calculate([
+        10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5,
+      ]),
+    ).toBe(57);
+  });
+
+  it('should return 61', () => {
+    expect(
+      service.calculate([
+        10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 2,
+      ]),
+    ).toBe(61);
+  });
+
+  it('should return 300', () => {
+    expect(
+      service.calculate([
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+      ]),
+    ).toBe(300);
+  });
 });
