@@ -1,9 +1,9 @@
 import { Restaurant } from "../../restaurants/entities/restaurant.entity";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class Menu {
+export class Item {
   @ApiProperty()
-  id: string;
+  id: number;
   @ApiProperty()
   name: string;
   @ApiProperty()
