@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class Menu {
   @ApiProperty()
-  id: string;
+  id: number;
   @ApiProperty()
   name: string;
   @ApiProperty()
