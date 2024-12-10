@@ -30,7 +30,7 @@ describe("ItemsService", () => {
         itemsService = module.get<ItemsService>(ItemsService);
     });
 
-    it("should return an array of items", async () => {
+    it("should return a list of items", async () => {
         jest.spyOn(itemsService, "findAll").mockResolvedValue([item as any]);
 
         const items = await itemsService.findAll();
@@ -39,26 +39,10 @@ describe("ItemsService", () => {
     });
 
     it("should return an item", async () => {
-        const mockItemRepository = {
-            findOne: jest.fn().mockResolvedValue({
-                "id": 2,
-                "name": "MaxiBestOf",
-                "description": "Le meilleur menu de chez McDo",
-                "prix": 10,
-            }),
-        };
-
-        const itemsService = new ItemsService(mockItemRepository as any);
-
         const item = await itemsService.findOne(1);
 
-        expect(item).toEqual({
-            "id": 2,
-            "name": "MaxiBestOf",
-            "description": "Le meilleur menu de chez McDo",
-            "prix": 10,
-        });
-        expect(mockItemRepository.findOne).toHaveBeenCalledWith({where: {id: 1}});
+        expect(item).toEqual(item);
+        expect(mockItemRepository.findOne).toHaveBeenCalledWith(1);
     });
 
     it("should create an item", async () => {
