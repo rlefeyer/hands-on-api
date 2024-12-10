@@ -1,6 +1,6 @@
-import {Menu} from "../../menus/entities/menu.entity";
 import {IsAlphanumeric, IsNotEmpty, IsNumber, IsObject, IsString, MinLength} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
+import {Item} from "../../items/entities/item.entity";
 
 export class CreateRestaurantDto {
 
@@ -36,10 +36,10 @@ export class CreateRestaurantDto {
     @ApiProperty({
         example: [1, 2],
         description: "The menu of the restaurant",
-        type: () => [Menu],
+        type: () => [Item],
     })
     @IsObject()
-    menu: Menu[];
+    menu: Item[];
 
     @IsNotEmpty()
     @IsNumber(null, {message: "The note must be a number"})

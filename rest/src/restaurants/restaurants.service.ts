@@ -16,7 +16,7 @@ export class RestaurantsService {
         return this.restaurantRepository.save(createRestaurantDto);
     }
 
-    findAll(query: any): Promise<Restaurant[]> {
+    findAll(query?: any): Promise<Restaurant[]> {
         return this.restaurantRepository.find({
             where: {name: query.filter},
             order: {name: query.sort},

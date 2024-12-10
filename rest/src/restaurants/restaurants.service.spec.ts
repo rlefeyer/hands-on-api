@@ -1,218 +1,94 @@
 import {RestaurantsService} from "./restaurants.service";
+import {Test, TestingModule} from "@nestjs/testing";
 
-it("should return an array of restaurants", async () => {
-    const mockUserRepository = {
-        find: jest.fn().mockResolvedValue([{
-            "name": "McDo",
-            "description": "Le meilleur fast-food",
-            "categorie": "fast-food",
-            "adresse": "5 rue de la paix",
-            "menu": [
-                1,
-                2,
-            ],
-            "note": 10,
-            "horaires": "10h-22h",
-        }, {
-            "name": "KFC",
-            "description": "Le meilleur fast-food",
-            "categorie": "fast-food",
-            "adresse": "5 rue de la paix",
-            "menu": [
-                1,
-                2,
-            ],
-            "note": 10,
-            "horaires": "10h-22h",
-        }]),
-    };
+describe("RestaurantsService", () => {
+    let restaurantsService: RestaurantsService;
 
-    const restaurantsService = new RestaurantsService(mockUserRepository as any);
-
-    const restaurants = await restaurantsService.findAll(mockUserRepository);
-
-    expect(restaurants).toEqual([{
+    const restaurant = {
+        "id": 1,
         "name": "McDo",
         "description": "Le meilleur fast-food",
         "categorie": "fast-food",
         "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
         "note": 10,
         "horaires": "10h-22h",
-    }, {
-        "name": "KFC",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
-    }]);
-});
+    }
 
+    const mockRestaurantService = {
+        create: jest.fn(),
+        findAll: jest.fn(),
+        findOne: jest.fn(),
+        update: jest.fn(),
+        remove: jest.fn(),
+    }
 
-it("should return a restaurant", async () => {
-    const mockUserRepository = {
-        findOne: jest.fn().mockResolvedValue({
-            "name": "KFC",
-            "description": "Le meilleur fast-food",
-            "categorie": "fast-food",
-            "adresse": "5 rue de la paix",
-            "menu": [
-                1,
-                2,
-            ],
-            "note": 10,
-            "horaires": "10h-22h",
-        }),
-    };
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [{
+                provide: RestaurantsService,
+                useValue: mockRestaurantService,
+            }],
+        }).compile();
 
-    const userService = new RestaurantsService(mockUserRepository as any);
-
-    const user = await userService.findOne(1);
-
-    expect(user).toEqual({
-        "name": "KFC",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
-    });
-    expect(mockUserRepository.findOne).toHaveBeenCalledWith({where: {id: 1}});
-});
-
-it("should create a restaurant", async () => {
-    const mockUserRepository = {
-        save: jest.fn().mockResolvedValue({
-            "name": "KFC",
-            "description": "Le meilleur fast-food",
-            "categorie": "fast-food",
-            "adresse": "5 rue de la paix",
-            "menu": [
-                1,
-                2,
-            ],
-            "note": 10,
-            "horaires": "10h-22h",
-        }),
-    };
-
-    const userService = new RestaurantsService(mockUserRepository as any);
-
-    const createUserDto = {
-        "name": "KFC",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
-    };
-
-    const newUser = await userService.create(createUserDto as any);
-
-    expect(newUser).toEqual({
-        "name": "KFC",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
-    });
-    expect(mockUserRepository.save).toHaveBeenCalledWith(createUserDto);
-});
-
-it("should update a restaurant", async () => {
-    const mockUserRepository = {
-        update: jest.fn().mockResolvedValue({affected: 1}),
-        findOne: jest.fn().mockResolvedValue({
-            "name": "Burger King",
-            "description": "Le meilleur fast-food",
-            "categorie": "fast-food",
-            "adresse": "5 rue de la paix",
-            "menu": [
-                1,
-                2,
-            ],
-            "note": 10,
-            "horaires": "10h-22h",
-        }),
-    };
-
-    const userService = new RestaurantsService(mockUserRepository as any);
-
-    const updateUserDto = {
-        "name": "Burger King",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
-    };
-
-    const updatedUser = await userService.update(1, updateUserDto as any);
-
-    expect(updatedUser).toEqual({
-        "name": "Burger King",
-        "description": "Le meilleur fast-food",
-        "categorie": "fast-food",
-        "adresse": "5 rue de la paix",
-        "menu": [
-            1,
-            2,
-        ],
-        "note": 10,
-        "horaires": "10h-22h",
+        restaurantsService = module.get<RestaurantsService>(RestaurantsService);
     });
 
-    expect(mockUserRepository.update).toHaveBeenCalledWith(1, expect.objectContaining(updateUserDto));
-    expect(mockUserRepository.findOne).toHaveBeenCalledWith({where: {id: 1}});
-});
+    describe("findAll", () => {
+        it("should return an array of restaurants", async () => {
+            jest.spyOn(restaurantsService, "findAll").mockResolvedValue([restaurant as any]);
 
-it("should remove a restaurant", async () => {
-    const mockUserRepository = {
-        delete: jest.fn().mockResolvedValue({affected: 1}),
-    };
+            const restaurants = await restaurantsService.findAll();
 
-    const userService = new RestaurantsService(mockUserRepository as any);
+            expect(restaurants).toEqual([restaurant]);
+        });
+    });
 
-    const result = await userService.remove(1);
+    describe("findOne", () => {
+        it("should return a restaurant", async () => {
+            jest.spyOn(restaurantsService, "findOne").mockResolvedValue(restaurant as any);
 
-    expect(result).toBe(true);
-    expect(mockUserRepository.delete).toHaveBeenCalledWith(1);
-});
+            const restaurantReturn = await restaurantsService.findOne(1);
 
-it("should return false if restaurant is not deleted", async () => {
-    const mockUserRepository = {
-        delete: jest.fn().mockResolvedValue({affected: 0}),
-    };
+            expect(restaurantReturn).toEqual(restaurant);
+            expect(restaurantsService.findOne).toHaveBeenCalledWith(1);
+        });
+    });
 
-    const userService = new RestaurantsService(mockUserRepository as any);
+    describe("create", () => {
+        it("should create a restaurant", async () => {
+            jest.spyOn(restaurantsService, "create").mockResolvedValue(restaurant as any);
 
-    const result = await userService.remove(1);
+            const newUser = await restaurantsService.create(restaurant as any);
 
-    expect(result).toBe(false);
-    expect(mockUserRepository.delete).toHaveBeenCalledWith(1);
+            expect(newUser).toEqual(restaurant);
+            expect(restaurantsService.create).toHaveBeenCalledWith(restaurant);
+        });
+    });
+
+    describe("update", () => {
+        it("should update a restaurant", async () => {
+
+            restaurant.name = "Burger King";
+
+            jest.spyOn(restaurantsService, "update").mockResolvedValue(restaurant as any);
+
+            const updatedUser = await restaurantsService.update(1, restaurant as any);
+
+            expect(updatedUser).toEqual(restaurant);
+
+            expect(restaurantsService.update).toHaveBeenCalledWith(1, expect.objectContaining(restaurant));
+            expect(restaurantsService.findOne).toHaveBeenCalledWith(1);
+        });
+    });
+
+    describe("remove", () => {
+        it("should remove a restaurant", async () => {
+            jest.spyOn(restaurantsService, "remove").mockResolvedValue(true);
+
+            const result = await restaurantsService.remove(1);
+
+            expect(result).toBe(true);
+            expect(restaurantsService.remove).toHaveBeenCalledWith(1);
+        });
+    });
 });

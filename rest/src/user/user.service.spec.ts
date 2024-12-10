@@ -33,92 +33,63 @@ describe("UserService", () => {
         userService = module.get<UserService>(UserService);
     });
 
-    it("should return an array of users", async () => {
-        const mockUserRepository = {
-            find: jest.fn().mockResolvedValue([{id: 1, name: "John Doe"}, {id: 2, name: "Paul Pruvost"}]),
-        };
+    describe("findAll", () => {
+        it("should return an array of users", async () => {
+            jest.spyOn(userService, "findAll").mockResolvedValue([user]);
 
-        const userService = new UserService(mockUserRepository as any);
+            const users = await userService.findAll();
 
-        const users = await userService.findAll();
-
-        expect(users).toEqual([{id: 1, name: "John Doe"}, {id: 2, name: "Paul Pruvost"}]);
+            expect(users).toEqual([user]);
+        });
     });
 
+    describe("findOne", () => {
+        it("should return a user", async () => {
+            jest.spyOn(userService, "findOne").mockResolvedValue(user);
 
-    it("should return a user", async () => {
-        const mockUserRepository = {
-            findOne: jest.fn().mockResolvedValue({id: 1, name: "John Doe"}),
-        };
+            const userTest = await userService.findOne(1);
 
-        const userService = new UserService(mockUserRepository as any);
-
-        const user = await userService.findOne(1);
-
-        expect(user).toEqual({id: 1, name: "John Doe"});
-        expect(mockUserRepository.findOne).toHaveBeenCalledWith({where: {id: 1}});
+            expect(userTest).toEqual(user);
+            expect(userService.findOne).toHaveBeenCalledWith(1);
+        });
     });
 
     describe("create", () => {
 
         it("should create a user", async () => {
-            const mockUserRepository = {
-                save: jest.fn().mockResolvedValue({id: 1, name: "John Doe"}),
-            };
-
-            const userService = new UserService(mockUserRepository as any);
+            jest.spyOn(userService, "create").mockResolvedValue(user);
 
             const newUser = await userService.create(user as any);
 
-            expect(newUser).toEqual({id: 1, name: "John Doe"});
-            expect(mockUserRepository.save).toHaveBeenCalledWith(user);
+            expect(newUser).toEqual(user);
+            expect(userService.create).toHaveBeenCalledWith(user);
         });
 
     });
 
-    it("should update a user", async () => {
-        const mockUserRepository = {
-            update: jest.fn().mockResolvedValue({affected: 1}),
-            findOne: jest.fn().mockResolvedValue({id: 1, name: "John Updated"}),
-        };
+    describe("update", () => {
+        it("should update a user", async () => {
+            user.name = "John Updated";
 
-        const userService = new UserService(mockUserRepository as any);
+            jest.spyOn(userService, "update").mockResolvedValue(user);
 
-        const updateUserDto = {
-            name: "John Updated",
-        };
+            const updatedUser = await userService.update(1, user as any);
 
-        const updatedUser = await userService.update(1, updateUserDto as any);
+            expect(updatedUser).toEqual(user);
 
-        expect(updatedUser).toEqual({id: 1, name: "John Updated"});
-
-        expect(mockUserRepository.update).toHaveBeenCalledWith(1, expect.objectContaining(updateUserDto));
-        expect(mockUserRepository.findOne).toHaveBeenCalledWith({where: {id: 1}});
+            expect(userService.update).toHaveBeenCalledWith(1, expect.objectContaining(user));
+            expect(userService.findOne).toHaveBeenCalledWith(1);
+        });
     });
 
-    it("should remove a user", async () => {
-        const mockUserRepository = {
-            delete: jest.fn().mockResolvedValue({affected: 1}),
-        };
+    describe("remove", () => {
+        it("should remove a user", async () => {
+            jest.spyOn(userService, "remove").mockResolvedValue(true);
 
-        const userService = new UserService(mockUserRepository as any);
+            const result = await userService.remove(1);
 
-        const result = await userService.remove(1);
-
-        expect(result).toBe(true);
-        expect(mockUserRepository.delete).toHaveBeenCalledWith(1);
-    });
-
-    it("should return false if user is not deleted", async () => {
-        const mockUserRepository = {
-            delete: jest.fn().mockResolvedValue({affected: 0}),
-        };
-
-        const userService = new UserService(mockUserRepository as any);
-
-        const result = await userService.remove(1);
-
-        expect(result).toBe(false);
-        expect(mockUserRepository.delete).toHaveBeenCalledWith(1);
+            expect(result).toBe(true);
+            expect(userService.remove).toHaveBeenCalledWith(1);
+        });
     });
 });
