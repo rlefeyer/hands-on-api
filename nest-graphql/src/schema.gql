@@ -9,15 +9,41 @@ type User {
   telephone: String!
 }
 
+type Category {
+  id: Int!
+  name: String!
+  description: String
+  restaurants: [Restaurant!]!
+}
+
+type Restaurant {
+  id: Int!
+  name: String!
+  description: String
+  address: String!
+  rating: Float
+  hours: String
+  category: Category!
+}
+
 type Query {
   user(id: Int!): User!
   users: [User!]!
+  restaurant(id: Int!): Restaurant!
+  categories: [Category!]!
+  category(id: Int!): Category!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): Boolean!
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  updateRestaurant(updateRestaurantInput: UpdateRestaurantInput!): Restaurant!
+  removeRestaurant(id: Int!): Restaurant!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(id: Int!, updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: Int!): Boolean!
 }
 
 input CreateUserInput {
@@ -32,4 +58,36 @@ input UpdateUserInput {
   name: String!
   address: String!
   telephone: String!
+}
+
+input CreateRestaurantInput {
+  id: Int
+  name: String!
+  description: String
+  address: String!
+  rating: Float
+  hours: String
+  categoryId: Int!
+}
+
+input UpdateRestaurantInput {
+  id: Int!
+  name: String
+  description: String
+  address: String
+  rating: Float
+  hours: String
+  categoryId: Int
+}
+
+input CreateCategoryInput {
+  id: Int
+  name: String!
+  description: String
+}
+
+input UpdateCategoryInput {
+  id: Int!
+  name: String
+  description: String
 }
