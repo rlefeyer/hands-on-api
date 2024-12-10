@@ -9,6 +9,14 @@ type User {
   telephone: String!
 }
 
+type Item {
+  id: Int!
+  name: String!
+  description: String
+  price: Float!
+  restaurant: Restaurant!
+}
+
 type Category {
   id: Int!
   name: String!
@@ -19,10 +27,11 @@ type Category {
 type Restaurant {
   id: Int!
   name: String!
-  description: String
   address: String!
+  description: String
   rating: Float
   hours: String
+  items: [Item!]!
   category: Category!
 }
 
@@ -32,6 +41,8 @@ type Query {
   restaurant(id: Int!): Restaurant!
   categories: [Category!]!
   category(id: Int!): Category!
+  item(id: Int!): Item!
+  items: [Item!]!
 }
 
 type Mutation {
@@ -44,6 +55,9 @@ type Mutation {
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   updateCategory(id: Int!, updateCategoryInput: UpdateCategoryInput!): Category!
   removeCategory(id: Int!): Boolean!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(id: Int!, updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: Int!): Boolean!
 }
 
 input CreateUserInput {
@@ -90,4 +104,20 @@ input UpdateCategoryInput {
   id: Int!
   name: String
   description: String
+}
+
+input CreateItemInput {
+  id: Int
+  name: String!
+  description: String
+  price: Float!
+  restaurantId: Int!
+}
+
+input UpdateItemInput {
+  id: Int!
+  name: String
+  description: String
+  price: Float
+  restaurantId: Int
 }

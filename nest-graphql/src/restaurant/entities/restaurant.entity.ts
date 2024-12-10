@@ -1,8 +1,7 @@
-import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
-// import { Menu } from 'src/menu/entities/menu.entity';
-// import { Item } from 'src/items/entities/item.entity';
-import { Category } from 'src/categories/entities/category.entity';
+import { Item } from '../../items/entities/item.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @ObjectType()
 @Entity()
@@ -15,15 +14,15 @@ export class Restaurant {
   @Column({ length: 100 })
   name: string;
 
-  @Field({ nullable: true })
-  @Column({ type: 'text', nullable: true })
-  description?: string;
-
   @Field()
   @Column({ length: 200 })
   address: string;
 
-  @Field(() => Float, { nullable: true })
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  description?: string;
+
+  @Field({ nullable: true })
   @Column({ type: 'float', nullable: true })
   rating?: number;
 
@@ -31,13 +30,9 @@ export class Restaurant {
   @Column({ length: 100, nullable: true })
   hours?: string;
 
-  // @Field(() => [Menu])
-  // @OneToMany(() => Menu, (menu) => menu.restaurant)
-  // menu: Menu[];
-
-  // @Field(() => [Item])
-  // @OneToMany(() => Item, (item) => item.restaurant)
-  // items: Item[];
+  @Field(() => [Item])
+  @OneToMany(() => Item, (item) => item.restaurant)
+  items: Item[];
 
   @Field(() => Category)
   @ManyToOne(() => Category, (category) => category.restaurants, { nullable: false })

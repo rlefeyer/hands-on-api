@@ -12,8 +12,9 @@ import { User } from './user/entities/user.entity';
 import { Restaurant } from './restaurant/entities/restaurant.entity';
 import { Category } from './categories/entities/category.entity';
 // import { Menu } from './menu/entities/menu.entity';
-// import { Item } from './items/entities/item.entity';
+import { Item } from './items/entities/item.entity';
 // import { Commande } from './commande/entities/commande.entity';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -28,13 +29,14 @@ import { Category } from './categories/entities/category.entity';
       username: 'postgres',
       password: 'root',
       database: 'deliveroo',
-      entities: [User, Restaurant, Category],
+      entities: [User, Restaurant, Category, Item],
       synchronize: true,
       logging: true,
     }),
     UserModule,
     RestaurantModule,
     CategoriesModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
