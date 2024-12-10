@@ -24,9 +24,7 @@ export class CreateMenuDto {
   prix: number;
   @ApiProperty({
     description: 'Restaurant du menu',
-    type: [Restaurant]
+    type: [String]
   })
-  @ValidateNested({ each: true })
-  @Type(() => Restaurant)
-  restaurant: Restaurant
+  restaurant: string
 }
