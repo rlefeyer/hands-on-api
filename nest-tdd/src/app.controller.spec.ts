@@ -71,4 +71,19 @@ describe('AppController', () => {
     const frames = [10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0];
     expect(appController.calculateScore(frames)).toBe(52);
   });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [ 10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5];
+    expect(appController.calculateScore(frames)).toBe(57);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 2];
+    expect(appController.calculateScore(frames)).toBe(61);
+  });
+
+  it('should calculate the total score for a game', () => {
+    const frames = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+    expect(appController.calculateScore(frames)).toBe(300);
+  });
 });
