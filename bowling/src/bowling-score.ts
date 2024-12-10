@@ -6,6 +6,6 @@ export class BowlingScore {
   }
 
   calculate(): number {
-    return 1;
+    return this.frames[0];
   }
 }
