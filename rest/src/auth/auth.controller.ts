@@ -9,6 +9,7 @@ import { LoginUserDto } from '../users/dto/login-user.dto';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { User as UserDecorator } from './user.decorator';
+import { Public } from './public.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -16,6 +17,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
+  @Public()
   @ApiOperation({ summary: 'Authentifier un utilisateur' })
   @ApiResponse({
     status: 200,
