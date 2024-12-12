@@ -24,6 +24,10 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
+  async findBy(username: string, password: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { username, password} });
+  }
+
   findAll() {
     return `This action returns all users`;
   }
