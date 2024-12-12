@@ -12,6 +12,9 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Roles } from 'src/auth/roles.decorator';
+import { Role } from 'src/auth/role.enum';
+import { Public } from 'src/auth/public.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -29,6 +32,7 @@ export class UsersController {
     status: 400,
     description: 'Les données fournies sont incorrectes.',
   })
+  @Public()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
@@ -40,6 +44,7 @@ export class UsersController {
     description: 'Liste des utilisateurs récupérée avec succès.',
     type: [User],
   })
+  @Public()
   findAll() {
     return this.usersService.findAll();
   }

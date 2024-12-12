@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from './auth.guard';
 import { CreateLogin } from './dto/create-login.dto';
+import { Public } from './public.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -11,6 +12,7 @@ export class AuthController {
     private readonly authService: AuthService,
   ){}
 
+  @Public()
   @Post('login')
   @ApiOperation({ summary: 'Se connecter' })
   @ApiResponse({
