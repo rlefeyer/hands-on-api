@@ -15,6 +15,7 @@ async function bootstrap() {
     .addTag('restaurants')
     .addTag('menus')
     .addTag('users')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
