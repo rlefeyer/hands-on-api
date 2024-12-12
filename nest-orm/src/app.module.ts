@@ -8,7 +8,6 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
 import { MenusModule } from './menus/menus.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrdersModuleV2 } from "./orders/versions/v2/orders.v2.modules";
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -28,7 +27,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule, RestaurantsModule, MenusModule, OrdersModule, OrdersModuleV2, AuthModule
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
