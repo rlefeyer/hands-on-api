@@ -11,6 +11,10 @@ export class User {
   @ApiProperty({ example: 'John Doe', description: "Nom de l'utilisateur" })
   name: string;
 
+  @Column({ length: 20 })
+  @ApiProperty({ example: 'Gre@tP@ssw0rd', description: "Mot de passe de l'utilisateur" })
+  password: string;
+
   @Column({ length: 255 })
   @ApiProperty({
     example: '20, Rue de Lille, 59300 Valenciennes',

@@ -4,6 +4,8 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   MaxLength,
+  Matches,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -15,6 +17,17 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Le nom ne peut pas être vide.' })
   @MaxLength(100, { message: 'Le nom ne peut pas dépasser 100 caractères.' })
   name: string;
+
+  @ApiProperty({
+    example: 'Gre@tP@ssw0rd',
+    description: "Le mot de passe de l'utilisateur",
+  })
+  @IsString()
+  @IsNotEmpty({ message: 'Le mot de passe ne peut pas être vide.' })
+  @MinLength(6, { message: 'Le mot de passe doit contenir au moins 8 caractères.' })
+  @MaxLength(20, { message: 'Le mot de passe ne peut pas dépasser 20 caractères.' })
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {message: 'password too weak'})
+  password: string;
 
   @ApiProperty({
     example: '123 Rue de Paris, 75001 Paris',
