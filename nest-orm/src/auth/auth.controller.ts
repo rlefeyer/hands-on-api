@@ -1,4 +1,3 @@
-
 import {
     Body,
     Controller,
@@ -21,6 +20,7 @@ export class AuthController {
     @Post('login')
     @Public()
     signIn(@Body() signInDto: Record<string, any>) {
+        console.log("ici")
         return this.authService.signIn(signInDto.username, signInDto.password);
     }
 
@@ -30,4 +30,3 @@ export class AuthController {
         return req.user;
     }
 }
-  

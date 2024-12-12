@@ -3,6 +3,7 @@ import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import {ApiOkResponse} from "@nestjs/swagger";
+import {Admin} from "../auth/constant.guard";
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -15,6 +16,7 @@ export class RestaurantsController {
   }
 
   @Get()
+  @Admin()
   @ApiOkResponse({description: 'All restaurants returned successfully'})
   findAll() {
     return this.restaurantsService.findAll();

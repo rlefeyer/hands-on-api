@@ -8,8 +8,7 @@ export class AuthService {
     constructor(
         private usersService: UsersService,
         private jwtService: JwtService,
-    ) {
-    }
+    ) {}
 
     async signIn(username: string, pass: string): Promise<any> {
         const user = await this.usersService.findBy(username);
