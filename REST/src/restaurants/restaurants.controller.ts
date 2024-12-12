@@ -11,6 +11,8 @@ import { RestaurantsService } from "./restaurants.service";
 import { CreateRestaurantDto } from "./dto/create-restaurant.dto";
 import { UpdateRestaurantDto } from "./dto/update-restaurant.dto";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
+import {Roles} from "../auth/roles.decorator";
+import {Role} from "../auth/role.enum";
 
 @ApiTags("Restaurants")
 @Controller("restaurants")
@@ -73,6 +75,7 @@ export class RestaurantsController {
     description: "The restaurant has been successfully removed.",
   })
   @ApiResponse({ status: 404, description: "Restaurant not found." })
+  @Roles(Role.Admin)
   remove(@Param("id") id: string) {
     return this.restaurantsService.remove(+id);
   }
