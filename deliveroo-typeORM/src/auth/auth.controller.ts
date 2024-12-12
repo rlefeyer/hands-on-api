@@ -1,7 +1,8 @@
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from './auth.guard';
+import { CreateLogin } from './dto/create-login.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,8 +21,8 @@ export class AuthController {
     status: 403,
     description: 'Identifiants incorrects',
   })
-  async login(username: string, password: string) {
-    return this.authService.signIn(username, password);
+  async login(@Body() createLogin: CreateLogin) {
+    return this.authService.signIn(createLogin.username, createLogin.password);
   }
 
   @UseGuards(AuthGuard)
