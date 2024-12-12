@@ -44,4 +44,13 @@ export class CreateUserDto {
   })
   @IsPhoneNumber('FR', { message: 'Le numéro de téléphone doit être valide.' })
   phone: string;
+
+  @ApiProperty({
+    example: 'admin',
+    description: "Le rôle de l'utilisateur",
+  })
+  @IsString()
+  @IsNotEmpty({ message: 'Le rôle ne peut pas être vide.' })
+  @MaxLength(10, { message: 'Le rôle ne peut pas dépasser 10 caractères.' })
+  role: string;
 }

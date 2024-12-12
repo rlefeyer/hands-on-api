@@ -29,6 +29,13 @@ export class User {
   })
   phone: string;
 
+  @Column({ length: 100 })
+  @ApiProperty({
+    example: 'admin',
+    description: "Rôle de l'utilisateur",
+  })
+  role: string;
+
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }
