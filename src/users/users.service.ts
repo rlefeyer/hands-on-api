@@ -29,6 +29,10 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
+  findBy(username:string,password:string) {
+    return this.userRepository.findOne({where:{username,password}});
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
