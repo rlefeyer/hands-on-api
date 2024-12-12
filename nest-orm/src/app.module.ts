@@ -9,6 +9,8 @@ import { MenusModule } from './menus/menus.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrdersModuleV2 } from "./orders/versions/v2/orders.v2.modules";
 import { AuthModule } from './auth/auth.module';
+import {ThrottlerModule} from "@nestjs/throttler";
+import * as tty from "node:tty";
 
 @Module({
   imports: [
@@ -25,6 +27,10 @@ import { AuthModule } from './auth/auth.module';
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60,
+      limit: 10,
+    }]),
     UsersModule, RestaurantsModule, MenusModule, OrdersModule, OrdersModuleV2, AuthModule
   ],
   controllers: [AppController],
