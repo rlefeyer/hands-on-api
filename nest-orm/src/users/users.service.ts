@@ -12,16 +12,9 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User();
-    user.name = createUserDto.name;
-    user.username = createUserDto.username;
-    user.email = createUserDto.email;
-    user.age = createUserDto.age;
-    user.gender = createUserDto.gender;
-    user.password = createUserDto.password;
-
-    return await this.userRepository.save(user);
+  create(createUserDto: CreateUserDto): Promise<User> {
+    const user = this.userRepository.create(createUserDto);
+    return this.userRepository.save(user);
   }
 
   async findBy(username: string): Promise<User> {
