@@ -1,16 +1,8 @@
-import {
-    Body,
-    Controller,
-    Get,
-    HttpCode,
-    HttpStatus,
-    Post,
-    Request,
-    UseGuards
-} from '@nestjs/common';
-import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
-import { Public } from './constant.guard';
+import {Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards} from '@nestjs/common';
+import {AuthGuard} from './auth.guard';
+import {AuthService} from './auth.service';
+import {Public} from './constant.guard';
+import {Role} from "./role.enum";
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +10,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    @Public()
+    @Public(Role.User)
     signIn(@Body() signInDto: Record<string, any>) {
         console.log("ici")
         return this.authService.signIn(signInDto.username, signInDto.password);

@@ -10,7 +10,6 @@ import { OrdersModule } from './orders/orders.module';
 import { OrdersModuleV2 } from "./orders/versions/v2/orders.v2.modules";
 import { AuthModule } from './auth/auth.module';
 import {ThrottlerModule} from "@nestjs/throttler";
-import * as tty from "node:tty";
 
 @Module({
   imports: [
