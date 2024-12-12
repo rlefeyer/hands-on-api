@@ -1,1 +1,0 @@
-{"version":3,"file":"cancel-order.dto.js","sourceRoot":"","sources":["../../../src/orders/dto/cancel-order.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA8C;AAE9C,MAAa,cAAc;CAM1B;AAND,wCAMC;AADC;IAJC,IAAA,qBAAW,EAAC;QACX,OAAO,EAAE,CAAC;QACV,WAAW,EAAE,wCAAwC;KACtD,CAAC;;0CACS"}
