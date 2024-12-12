@@ -10,8 +10,7 @@ export class UserService {
 
     constructor(
         @InjectRepository(User) private readonly userRepository: Repository<User>,
-    ) {
-    }
+    ) {}
 
     create(createUserDto: CreateUserDto): Promise<User> {
         return this.userRepository.save(createUserDto);
@@ -23,6 +22,15 @@ export class UserService {
 
     findOne(id: number): Promise<User> {
         return this.userRepository.findOne({where: {id}});
+    }
+
+    async findBy(name: string, password: string): Promise<User> {
+        return this.userRepository.findOne({where: {name, password}}).then((user) => {
+            return user;
+        }).catch((e) => {
+            console.log(e);
+            throw e;
+        });
     }
 
     async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {

@@ -13,6 +13,7 @@ import {Order} from "./orders/entities/order.entity";
 import {Menu} from "./menus/entities/menu.entity";
 import {Item} from "./items/entities/item.entity";
 import {Restaurant} from "./restaurants/entities/restaurant.entity";
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ dotenv.config();
         logging: true,
     }),
         UserModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],

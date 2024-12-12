@@ -24,7 +24,7 @@ export class Menu {
     @IsString()
     prix: number;
 
-    @ManyToMany(() => Restaurant, restaurant => restaurant.menu, {cascade: true})
+    @ManyToMany(() => Restaurant, restaurant => restaurant.menu)
     @JoinTable()
     @ApiProperty({
         example: {

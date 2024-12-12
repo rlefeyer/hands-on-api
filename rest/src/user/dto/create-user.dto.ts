@@ -18,6 +18,12 @@ export class CreateUserDto {
     adresse: string;
 
     @IsNotEmpty()
+    @MinLength(3, {message: "The password is too short"})
+    @IsAlphanumeric(null, {message: "The password must be alphanumeric"})
+    @ApiProperty({example: "rijthntrh"})
+    password: string;
+
+    @IsNotEmpty()
     @MinLength(10, {message: "The telephone number is too short"})
     @IsAlphanumeric(null, {message: "The telephone number must be alphanumeric"})
     @ApiProperty({example: "0606060606"})

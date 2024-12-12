@@ -13,6 +13,11 @@ export class User {
     @IsString()
     name: string;
 
+    @Column({type: "varchar", length: 30})
+    @ApiProperty({example: "azerty123"})
+    @IsString()
+    password: string;
+
     @Column({type: "varchar", length: 255})
     @ApiProperty({example: "5 rue de la paix"})
     @IsString()
