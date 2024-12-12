@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -39,6 +40,17 @@ export class UserService {
     } catch (error) {
       throw new InternalServerErrorException('Failed to retrieve user');
     }
+  }
+
+  async findBy(name: string, password: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ name: name });
+    if (!user) {
+      throw new NotFoundException(`User with name ${name} not found`);
+    }
+    if (user.password !== password) {
+      throw new UnauthorizedException('Password is incorrect');
+    }
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {

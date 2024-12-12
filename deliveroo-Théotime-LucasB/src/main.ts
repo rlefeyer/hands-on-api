@@ -15,6 +15,14 @@ async function bootstrap() {
     .setTitle('Deliveroo API')
     .setDescription('The Deliveroo API description')
     .setVersion('0.1')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .build();
  
   const document = SwaggerModule.createDocument(app, config);

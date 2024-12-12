@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsString, IsInt, IsOptional, IsNotEmpty, IsEmail, Length, Matches } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
@@ -27,4 +27,10 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @Matches(/^\+?[0-9]*$/, { message: 'The telephone number must be a valid phone number' })
   @ApiPropertyOptional({ description: 'The telephone number of the user', example: '+1234567890' })
   telephone?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Length(8, 100)
+  @ApiProperty({ description: 'The password of the user', example: 'password123' })
+  password: string;
 }

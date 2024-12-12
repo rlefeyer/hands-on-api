@@ -25,4 +25,10 @@ export class CreateUserDto {
   @Matches(/^\+?[0-9]*$/, { message: 'The telephone number must be a valid phone number' })
   @ApiProperty({ description: 'The telephone number of the user', example: '+1234567890' })
   telephone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Length(8, 100)
+  @ApiProperty({ description: 'The password of the user', example: 'password123' })
+  password: string;
 }

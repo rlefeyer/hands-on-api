@@ -12,6 +12,7 @@ import { Menu } from './menu/entities/menu.entity';
 import { Item } from './items/entities/item.entity';
 import { Commande } from './commande/entities/commande-v2.entity';
 import { Category } from './categories/entities/category.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [UserModule, RestaurantModule, MenuModule, CommandeModule, ItemsModule, CategoriesModule,
@@ -25,7 +26,8 @@ import { Category } from './categories/entities/category.entity';
       database: 'deliveroo', 
       synchronize: true,
       logging: true,
-    })
+    }),
+    AuthModule
   ],
   controllers: [],
   providers: [],
