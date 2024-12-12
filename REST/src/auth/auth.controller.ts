@@ -21,6 +21,7 @@ import { Public } from './constant.guard';
     @Post('login')
     @Public()
     signIn(@Body() signInDto: Record<string, any>) {
+      console.log(signInDto);
       return this.authService.signIn(signInDto.username, signInDto.password);
     }
   
