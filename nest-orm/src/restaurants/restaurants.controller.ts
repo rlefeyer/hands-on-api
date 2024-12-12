@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RestaurantsService } from './restaurants.service';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import {Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
+import {RestaurantsService} from './restaurants.service';
+import {CreateRestaurantDto} from './dto/create-restaurant.dto';
+import {UpdateRestaurantDto} from './dto/update-restaurant.dto';
 import {ApiOkResponse} from "@nestjs/swagger";
 import {Admin} from "../auth/constant.guard";
+import {Role} from "../auth/role.enum";
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -16,7 +17,7 @@ export class RestaurantsController {
   }
 
   @Get()
-  @Admin()
+  @Admin(Role.Admin)
   @ApiOkResponse({description: 'All restaurants returned successfully'})
   findAll() {
     return this.restaurantsService.findAll();
