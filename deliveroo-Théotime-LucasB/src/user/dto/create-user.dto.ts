@@ -31,4 +31,10 @@ export class CreateUserDto {
   @Length(8, 100)
   @ApiProperty({ description: 'The password of the user', example: 'password123' })
   password: string;
+
+  @IsString()
+  @IsOptional()
+  @Length(1, 50)
+  @ApiPropertyOptional({ description: 'The role of the user', example: 'user' })
+  role?: string = 'user';
 }

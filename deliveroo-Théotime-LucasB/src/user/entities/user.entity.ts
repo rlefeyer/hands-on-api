@@ -24,15 +24,20 @@ export class User {
   @ApiProperty({ description: 'The password of the user', example: 'password123' })
   password: string;
 
+  @Column({ length: 50, default: 'user' })
+  @ApiProperty({ description: 'The role of the user', example: 'user' })
+  role: string;
+
   @OneToMany(() => Commande, (commande) => commande.user)
   @ApiProperty({ description: 'The commande associated with the user', type: () => Commande })
   commandes: Commande[];
 
-  constructor(id: number, name: string, address: string, telephone: string, password: string) {
+  constructor(id: number, name: string, address: string, telephone: string, password: string, role: string) {
     this.id = id;
     this.name = name;
     this.address = address;
     this.telephone = telephone;
     this.password = password;
+    this.role = role;
   }
 }
