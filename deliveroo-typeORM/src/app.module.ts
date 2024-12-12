@@ -14,6 +14,7 @@ import { Order } from './orders/entities/order.entity';
 import { Menu } from './menus/entities/menu.entity';
 import { Item } from './items/entities/item.entity';
 import { Ordersv2 } from './ordersv2/entities/ordersv2.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { Ordersv2 } from './ordersv2/entities/ordersv2.entity';
     MenusModule,
     ItemsModule,
     Ordersv2Module,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
