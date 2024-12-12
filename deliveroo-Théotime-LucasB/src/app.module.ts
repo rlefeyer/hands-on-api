@@ -13,23 +13,39 @@ import { Item } from './items/entities/item.entity';
 import { Commande } from './commande/entities/commande-v2.entity';
 import { Category } from './categories/entities/category.entity';
 import { AuthModule } from './auth/auth.module';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [UserModule, RestaurantModule, MenuModule, CommandeModule, ItemsModule, CategoriesModule,
+  imports: [
+    UserModule,
+    RestaurantModule,
+    MenuModule,
+    CommandeModule,
+    ItemsModule,
+    CategoriesModule,
+    AuthModule,
+    ThrottlerModule.forRoot([{
+      ttl: 120,
+      limit: 2,
+    }]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      password: 'root',
       username: 'postgres',
+      password: 'root',
+      database: 'deliveroo',
       entities: [User, Restaurant, Menu, Item, Commande, Category],
-      database: 'deliveroo', 
       synchronize: true,
       logging: true,
     }),
-    AuthModule
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}
