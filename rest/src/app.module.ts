@@ -13,24 +13,35 @@ import {Order} from "./orders/entities/order.entity";
 import {Menu} from "./menus/entities/menu.entity";
 import {Item} from "./items/entities/item.entity";
 import {Restaurant} from "./restaurants/entities/restaurant.entity";
-import { AuthModule } from './auth/auth.module';
+import {AuthModule} from "./auth/auth.module";
+import {ThrottlerModule} from "@nestjs/throttler";
 
 dotenv.config();
 
 @Module({
-    imports: [OrdersModule, UserModule, RestaurantsModule, MenusModule, ItemsModule, TypeOrmModule.forRoot({
-        type: "postgres",
-        host: process.env.DB_HOST,
-        port: +process.env.DB_PORT,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        entities: [User, Order, Menu, Item, Restaurant],
-        database: "food-delivery",
-        synchronize: true,
-        logging: true,
-    }),
+    imports: [
+        OrdersModule,
+        UserModule,
+        RestaurantsModule,
+        MenusModule,
+        ItemsModule,
+        TypeOrmModule.forRoot({
+            type: "postgres",
+            host: process.env.DB_HOST,
+            port: +process.env.DB_PORT,
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            entities: [User, Order, Menu, Item, Restaurant],
+            database: "food-delivery",
+            synchronize: true,
+            logging: true,
+        }),
         UserModule,
         AuthModule,
+        ThrottlerModule.forRoot([{
+            ttl: 60,
+            limit: 10,
+        }]),
     ],
     controllers: [AppController],
     providers: [AppService],
