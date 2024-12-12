@@ -21,6 +21,8 @@ describe('UsersController', () => {
     name: 'John Doe',
     address: '123 Rue de Paris',
     phone: '0666666666',
+    username: 'john.doe',
+    password: 'password',
   };
 
   beforeEach(async () => {
@@ -52,6 +54,8 @@ describe('UsersController', () => {
         name: 'John Doe',
         address: '123 Rue de Paris',
         phone: '0666666666',
+        username: 'john.doe',
+        password: 'password',
       };
 
       mockUsersService.create.mockResolvedValue(mockUser);

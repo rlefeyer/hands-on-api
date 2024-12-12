@@ -7,6 +7,8 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
@@ -31,4 +33,14 @@ export class CreateUserDto {
   @MaxLength(15, { message: 'Phone number must be at most 15 characters long' })
   @IsMobilePhone('fr-FR')
   phone: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }

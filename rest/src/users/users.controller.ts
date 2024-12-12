@@ -15,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
@@ -189,5 +190,32 @@ export class UsersController {
   })
   remove(@Param('id') id: string): Promise<boolean> {
     return this.usersService.remove(id);
+  }
+
+  @Post('login')
+  @ApiOperation({
+    summary: 'Authentifier un utilisateur',
+    description: "Vérifie les credentials et retourne l'utilisateur si valide",
+  })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        username: { type: 'string', example: 'john_doe' },
+        password: { type: 'string', example: 'password123' },
+      },
+      required: ['username', 'password'],
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Utilisateur trouvé et authentifié avec succès',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Utilisateur non trouvé ou credentials invalides',
+  })
+  findBy(@Body() loginDto: LoginUserDto) {
+    return this.usersService.findBy(loginDto.username, loginDto.password);
   }
 }

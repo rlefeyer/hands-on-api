@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -7,6 +7,8 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
+
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
@@ -33,5 +35,26 @@ export class UsersService {
   async remove(id: string): Promise<boolean> {
     const result = await this.usersRepository.delete(id);
     return result.affected > 0;
+  }
+
+  async findBy(username: string, password: string): Promise<User | null> {
+    this.logger.log(`Tentative de connexion pour l'utilisateur: ${username}`);
+
+    const user = await this.usersRepository.findOne({
+      where: {
+        username,
+        password, // Note: En production, il faudrait hasher le password
+      },
+    });
+
+    if (!user) {
+      this.logger.warn(`Échec de connexion pour l'utilisateur: ${username}`);
+      throw new NotFoundException(
+        'Utilisateur non trouvé ou mot de passe incorrect',
+      );
+    }
+
+    this.logger.log(`Connexion réussie pour l'utilisateur: ${username}`);
+    return user;
   }
 }
