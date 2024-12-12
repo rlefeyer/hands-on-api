@@ -1,10 +1,10 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Role} from "./role.enum";
 
 @Entity()
 export class User {
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -28,4 +28,8 @@ export class User {
     @IsString()
     telephone: string;
 
+    @Column({type: "varchar", length: 15, default: Role.User})
+    @ApiProperty({example: "user"})
+    @IsString()
+    roles: string;
 }
