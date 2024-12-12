@@ -1,0 +1,109 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  name: String!
+  username: String!
+  email: String!
+  age: Float!
+  password: String!
+  gender: String!
+}
+
+type Item {
+  id: Int!
+  name: String!
+  description: String!
+  prix: Float!
+  restaurant: [Restaurant!]!
+}
+
+type Restaurant {
+  id: Int!
+  name: String!
+  description: String!
+  categorie: String!
+  adresse: String!
+  menu: [Item!]!
+  note: Float!
+  horaires: String!
+}
+
+type Order {
+  id: Int!
+  order: [Item!]!
+  prix: Float!
+  User: User!
+}
+
+type Query {
+  user(id: Int!): User!
+  users: [User!]!
+  helloWorld: String!
+  restaurant(id: Int!): Restaurant!
+  items: [Item!]!
+  item(id: Int!): Item!
+  orders: [Order!]!
+  order(id: Int!): Order!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  updateRestaurant(updateRestaurantInput: UpdateRestaurantInput!): Restaurant!
+  removeRestaurant(id: Int!): Restaurant!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: Int!): Item!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
+  removeOrder(id: Int!): Order!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateRestaurantInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateRestaurantInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
