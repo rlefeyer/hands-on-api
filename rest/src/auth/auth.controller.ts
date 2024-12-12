@@ -6,10 +6,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { LoginUserDto } from '../users/dto/login-user.dto';
-import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { User as UserDecorator } from './user.decorator';
-import { Public } from './public.decorator';
+import { Public } from './decorators/public.decorator';
+import { Roles } from './decorators/roles.decorator';
+import { UserDecorator } from './decorators/user.decorator';
+import { Role } from './enums/role.enum';
+import { AuthGuard } from './guards/auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -44,6 +46,23 @@ export class AuthController {
     description: 'Non autorisé',
   })
   getProfile(@UserDecorator() user: any) {
-    return user;
+    return {
+      id: user.sub,
+      username: user.username,
+      role: user.role,
+    };
+  }
+
+  @Get('admin-profile')
+  @ApiBearerAuth()
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Obtenir le profil admin' })
+  getAdminProfile(@UserDecorator() user: any) {
+    return {
+      id: user.sub,
+      username: user.username,
+      role: user.role,
+      isAdmin: true,
+    };
   }
 }

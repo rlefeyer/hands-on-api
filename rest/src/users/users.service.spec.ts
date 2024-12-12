@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Role } from 'src/auth/enums/role.enum';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -26,6 +27,7 @@ describe('UsersService', () => {
     phone: '0666666666',
     username: 'john.doe',
     password: 'password',
+    roles: Role.USER,
   };
 
   beforeEach(async () => {
@@ -55,6 +57,7 @@ describe('UsersService', () => {
         phone: '0666666666',
         username: 'john.doe',
         password: 'password',
+        roles: Role.USER,
       };
 
       mockUserRepository.create.mockReturnValue(mockUser);

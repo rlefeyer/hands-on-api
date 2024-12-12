@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -14,18 +15,24 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Public } from '../auth/decorators/public.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @ApiTags('users')
 @Controller('v1/users')
+@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @Public()
   @ApiOperation({
     summary: 'Create a new user',
     description: 'Creates a new user with the provided details.',
@@ -39,7 +46,10 @@ export class UsersController {
         value: {
           name: 'John Doe',
           address: '123 Main St, Anytown, USA',
-          phone: '+6666666666',
+          phone: '+33612131415',
+          username: 'john.doe',
+          password: 'password',
+          roles: Role.USER,
         },
       },
     },
@@ -74,6 +84,7 @@ export class UsersController {
   }
 
   @Get()
+  @Roles(Role.ADMIN)
   @ApiOperation({
     summary: 'Get all users',
     description: 'Retrieves a list of all users.',
@@ -162,6 +173,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @Roles(Role.ADMIN)
   @ApiOperation({
     summary: 'Delete a user',
     description: 'Deletes a user by their unique identifier.',

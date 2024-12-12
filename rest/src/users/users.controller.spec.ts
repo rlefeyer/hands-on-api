@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { User } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { Role } from 'src/auth/enums/role.enum';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -23,6 +24,7 @@ describe('UsersController', () => {
     phone: '0666666666',
     username: 'john.doe',
     password: 'password',
+    roles: Role.USER,
   };
 
   beforeEach(async () => {
@@ -56,6 +58,7 @@ describe('UsersController', () => {
         phone: '0666666666',
         username: 'john.doe',
         password: 'password',
+        roles: Role.USER,
       };
 
       mockUsersService.create.mockResolvedValue(mockUser);
