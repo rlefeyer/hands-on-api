@@ -27,7 +27,7 @@ describe('UsersService', () => {
     phone: '0666666666',
     username: 'john.doe',
     password: 'password',
-    roles: Role.USER,
+    role: Role.USER,
   };
 
   beforeEach(async () => {
@@ -57,7 +57,7 @@ describe('UsersService', () => {
         phone: '0666666666',
         username: 'john.doe',
         password: 'password',
-        roles: Role.USER,
+        role: Role.USER,
       };
 
       mockUserRepository.create.mockReturnValue(mockUser);

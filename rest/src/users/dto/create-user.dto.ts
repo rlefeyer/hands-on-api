@@ -48,5 +48,5 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  roles: Role;
+  role: Role;
 }

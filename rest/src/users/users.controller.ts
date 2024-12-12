@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -15,6 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { UserDecorator } from 'src/auth/decorators/user.decorator';
 import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
@@ -23,11 +23,9 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
-import { AuthGuard } from '../auth/guards/auth.guard';
 
 @ApiTags('users')
 @Controller('v1/users')
-@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -49,7 +47,7 @@ export class UsersController {
           phone: '+33612131415',
           username: 'john.doe',
           password: 'password',
-          roles: Role.USER,
+          role: Role.USER,
         },
       },
     },
@@ -84,6 +82,7 @@ export class UsersController {
   }
 
   @Get()
+  // @ApiBearerAuth()
   @Roles(Role.ADMIN)
   @ApiOperation({
     summary: 'Get all users',
@@ -105,7 +104,8 @@ export class UsersController {
       },
     },
   })
-  findAll(): Promise<User[]> {
+  findAll(@UserDecorator() user: any): Promise<User[]> {
+    console.log('user who find all', user);
     return this.usersService.findAll();
   }
 
