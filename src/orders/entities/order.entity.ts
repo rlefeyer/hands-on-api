@@ -8,7 +8,7 @@ export class Order {
   id: number;
   @Column()
   name: string;
-  @Column()
+  @Column({ type: 'json' })
   menus: string[];
   @Column()
   prix: number;

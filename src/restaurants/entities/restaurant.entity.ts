@@ -15,7 +15,7 @@ export class Restaurant {
   @Column()
   address: string;
 
-  @OneToMany(() => Menu, menu => menu.id)
+  @Column({type: 'json'})
   menus: string[];
 
   @Column()
