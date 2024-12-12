@@ -22,4 +22,7 @@ export class User {
 
   @Column({ type: 'enum', enum: ['m', 'f', 'u'] })
   gender: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  role: string;
 }
