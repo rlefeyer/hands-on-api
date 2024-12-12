@@ -33,4 +33,8 @@ export class UsersService {
   async remove(id: string): Promise<void> {
     await this.userRepository.delete(id);
   }
+
+  async findBy ( username: string, password: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { username,password } });
+  }
 }
