@@ -14,6 +14,7 @@ import {AuthController} from "./auth.controller";
       signOptions: { expiresIn: '60s' },
     }),
   ],
+  providers: [AuthService],
   exports: [AuthService],
   controllers: [AuthController],
 })
