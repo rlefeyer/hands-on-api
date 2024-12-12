@@ -7,5 +7,5 @@ node_modules/
 .npm
 
 # Dist
-dist/
+**/dist/
 
