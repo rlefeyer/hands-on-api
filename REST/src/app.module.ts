@@ -11,6 +11,7 @@ import { User } from "./users/entities/user.entity";
 import { AuthModule } from './auth/auth.module';
 import * as dotenv from "dotenv";
 import * as process from "node:process";
+import {ThrottlerModule} from "@nestjs/throttler";
 
 dotenv.config();
 
@@ -36,6 +37,10 @@ dotenv.config();
       },
     }),
     AuthModule,
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 10,
+    }]),
   ],
   controllers: [AppController],
   providers: [AppService],
