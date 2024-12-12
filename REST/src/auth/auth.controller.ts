@@ -11,6 +11,7 @@ import {
   } from '@nestjs/common';
   import { AuthGuard } from './auth.guard';
   import { AuthService } from './auth.service';
+import { Public } from './constant.guard';
   
   @Controller('auth')
   export class AuthController {
@@ -18,6 +19,7 @@ import {
   
     @HttpCode(HttpStatus.OK)
     @Post('login')
+    @Public()
     signIn(@Body() signInDto: Record<string, any>) {
       return this.authService.signIn(signInDto.username, signInDto.password);
     }
