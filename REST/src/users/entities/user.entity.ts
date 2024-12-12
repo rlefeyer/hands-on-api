@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Role} from "../../auth/role.enum";
 
 @Entity()
 export class User {
@@ -20,4 +21,6 @@ export class User {
   gender: string;
   @ApiProperty({ example: "ZiBaizeur@59", required: true })
   password: string;
+  @ApiProperty()
+  role: Role;
 }
