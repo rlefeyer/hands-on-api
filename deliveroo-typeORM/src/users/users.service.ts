@@ -32,6 +32,19 @@ export class UsersService {
     return user;
   }
 
+  async findBy(username: string, password: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { name: username, phone: password },
+    });
+
+    if (!user) {
+      throw new NotFoundException(
+        `Aucun utilisateur trouvé avec le nom "${username}" et le mot de passe fourni.`,
+      );
+    }
+    return user;
+  }
+
   // Mettre à jour un utilisateur
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
