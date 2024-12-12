@@ -34,8 +34,10 @@ export class UsersService {
 
   async findBy(username: string, password: string): Promise<User> {
     const user = await this.userRepository.findOne({
-      where: { name: username, phone: password },
+      where: { name: username, password: password },
     });
+
+    console.log('user', user);
 
     if (!user) {
       throw new NotFoundException(
