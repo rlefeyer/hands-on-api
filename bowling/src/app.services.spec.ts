@@ -57,4 +57,43 @@ describe("Bowling App", () => {
             expect(result).toEqual(43);
         });
     });
+
+    describe("total with strike", () => {
+        it("result should be 11", async () => {
+            const result = appService.getTotalScore([10, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            expect(result).toEqual(11);
+        });
+
+        it("result should be 19", async () => {
+            const result = appService.getTotalScore([10, 2, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            expect(result).toEqual(19);
+        });
+
+        it("result should be 20", async () => {
+            const result = appService.getTotalScore([10, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            expect(result).toEqual(20);
+        });
+
+        it("result should be 42", async () => {
+            const result = appService.getTotalScore([10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            expect(result).toEqual(42);
+        });
+
+        it("result should be 60", async () => {
+            const result = appService.getTotalScore([10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            expect(result).toEqual(60);
+        });
+    });
+
+    describe("total with bonus on the last frame", () => {
+        it("result should be 52", async () => {
+            const result = appService.getTotalScore([10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0]);
+            expect(result).toEqual(52);
+        });
+
+        it("result should be 57", async () => {
+            const result = appService.getTotalScore([10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5]);
+            expect(result).toEqual(57);
+        });
+    });
 });
