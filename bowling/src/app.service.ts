@@ -17,9 +17,8 @@ export class AppService {
             this.total += score;
 
             if (index % 2 === 0)
-                if (previousValue + score === 10) this.getSpare(data, index);
-            
-            previousValue = score;
+                previousValue = score;
+            else if (previousValue + score === 10) this.getSpare(data, index);
         });
         return this.total;
     }
