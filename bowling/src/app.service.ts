@@ -16,14 +16,18 @@ export class AppService {
         data.map((score, index) => {
             this.total += score;
 
-            if (score === 10 && (index === data[data.length - 2] || index === data[data.length - 1]))
-                console.log("test");
-            else if (score === 10)
+            if (score === 10)
                 this.getStrike(data, index);
             else if (index % 2 === 0)
                 this.previousValue = score;
-            else if (this.previousValue + score === 10) this.getSpare(data, index);
+            else if (this.previousValue + score === 10)
+                this.getSpare(data, index);
+
+            if (index >= data.length - 3 && score === 10) {
+                this.lastFrames(data, index);
+            }
         });
+
         return this.total;
     }
 
@@ -37,5 +41,7 @@ export class AppService {
     }
 
     private lastFrames(arrayValue: Array<number>, indexScore: number) {
+        this.total -= arrayValue[indexScore + 1] ?? 0;
+        this.total -= arrayValue[indexScore + 2] ?? 0;
     }
 }

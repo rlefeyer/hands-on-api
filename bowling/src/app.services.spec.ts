@@ -95,5 +95,15 @@ describe("Bowling App", () => {
             const result = appService.getTotalScore([10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5]);
             expect(result).toEqual(57);
         });
+
+        it("result should be 61", async () => {
+            const result = appService.getTotalScore([10, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 2]);
+            expect(result).toEqual(61);
+        });
+        
+        it("result should be 300", async () => {
+            const result = appService.getTotalScore([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]);
+            expect(result).toEqual(300);
+        });
     });
 });
