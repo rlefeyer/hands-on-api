@@ -1,0 +1,133 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  name: String!
+  address: String!
+  phone: String!
+}
+
+type Restaurant {
+  id: Int!
+  name: String!
+  description: String
+  address: String!
+  menus: [Menu!]
+  rating: Float
+  openingHours: String
+}
+
+type Menu {
+  id: Int!
+  name: String!
+  description: String
+  price: Float
+  restaurant: Restaurant!
+}
+
+type Item {
+  id: Int!
+  name: String!
+  restaurant: Restaurant
+}
+
+type Order {
+  id: Int!
+  items: [Item!]!
+  price: Float!
+  userId: Int!
+}
+
+type Query {
+  orders: [Order!]!
+  order(id: Int!): Order
+  orderItems(id: Int!): [Item!]!
+  ordersByUser(userId: Int!): [Order!]!
+  items: [Item!]!
+  item(id: Int!): Item
+  restaurants: [Restaurant!]!
+  restaurant(id: Int!): Restaurant
+  menus: [Menu!]!
+  menu(id: Int!): Menu
+  users: [User!]!
+  user(id: Int!): User
+}
+
+type Mutation {
+  createOrder(createOrderDto: CreateOrderDto!): Order!
+  updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order
+  deleteOrder(id: Int!): Boolean!
+  createItem(CreateItemDto: CreateItemDto!): Item!
+  updateItem(id: Int!, UpdateItemDto: UpdateItemDto!): Item
+  deleteItem(id: Int!): Boolean!
+  createRestaurant(createRestaurantInput: CreateRestaurantDto!): Restaurant!
+  updateRestaurant(id: Int!, updateRestaurantInput: UpdateRestaurantDto!): Restaurant
+  deleteRestaurant(id: Int!): Boolean!
+  createMenu(createMenuInput: CreateMenuDto!): Menu!
+  updateMenu(id: Int!, updateMenuInput: CreateMenuDto!): Menu
+  deleteMenu(id: Int!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(id: Int!, updateUserInput: UpdateUserInput!): User
+  deleteUser(id: Int!): Boolean!
+}
+
+input CreateOrderDto {
+  items: [Int!]!
+  price: Float!
+  userId: Int!
+}
+
+input UpdateOrderDto {
+  items: [Int!]
+  price: Float
+  userId: Int
+}
+
+input CreateItemDto {
+  name: String!
+  restaurantId: Int!
+}
+
+input UpdateItemDto {
+  name: String
+  restaurantId: Int
+}
+
+input CreateRestaurantDto {
+  name: String!
+  description: String
+  address: String!
+  menus: [Int!]
+  rating: Float
+  openingHours: String
+}
+
+input UpdateRestaurantDto {
+  name: String
+  description: String
+  address: String
+  menus: [Int!]
+  rating: Float
+  openingHours: String
+}
+
+input CreateMenuDto {
+  name: String!
+  description: String
+  price: Float
+  restaurantId: Int!
+}
+
+input CreateUserInput {
+  name: String!
+  address: String!
+  phone: String!
+}
+
+input UpdateUserInput {
+  name: String
+  address: String
+  phone: String
+}

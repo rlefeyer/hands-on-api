@@ -1,0 +1,59 @@
+# Node.js specific
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+logs/*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# NestJS build output
+dist/
+.cache/
+
+# TypeScript compiled output
+*.tsbuildinfo
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+
+# MacOS specific files
+.DS_Store
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Miscellaneous
+tmp/
+temp/
+
+# Docker files
+docker-compose.yml
+Dockerfile
+
+# Test coverage reports
+coverage/
+.nyc_output/
+
+# Optional eslint cache
+.eslintcache
