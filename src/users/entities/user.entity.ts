@@ -1,5 +1,7 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Role} from "../../auth/role.enum";
 
+type Roles = keyof typeof Role;
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -27,6 +29,11 @@ export class User {
     length: 128
   })
   password: string;
+
+  @Column({
+    type:'jsonb'
+  })
+  roles: Roles[];
 
 
 

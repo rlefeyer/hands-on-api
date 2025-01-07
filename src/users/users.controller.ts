@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from "./dto/update-user.dto";
 import {ApiOkResponse, ApiOperation} from "@nestjs/swagger";
+import {Role} from "../auth/role.enum";
+import {Roles} from "../auth/roles.decorator";
 
 @Controller('v1/users')
 export class UsersController {
@@ -11,6 +13,7 @@ export class UsersController {
   @Post()
   @ApiOkResponse({status: 201, description: 'User created successfully'})
   @ApiOperation({summary: 'Create a new user'})
+  @Roles(Role.Admin)
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }

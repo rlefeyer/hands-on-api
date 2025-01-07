@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import { AuthModule } from './auth/auth.module';
+import {APP_GUARD} from "@nestjs/core";
+import {RolesGuard} from "./auth/roles.guard";
 
 @Module({
   imports: [
