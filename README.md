@@ -26,8 +26,7 @@ Ce repository est utilisé pour les travaux pratiques des étudiants. Chaque ét
 - **Livrables** : Tout le code, les documents, et autres fichiers produits doivent être versionnés dans votre branche.
 
 ### Bonnes pratiques  
-- Faites des commits clairs et réguliers :  
-  - Utilisez des messages de commit explicites, par exemple :  
+- Faites des commits clairs et réguliers, par exemple :  
     ```
     git commit -m "Ajout des tests unitaires pour la fonctionnalité X"
     ```  
