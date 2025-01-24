@@ -14,7 +14,7 @@ Ce repository est utilisé pour les travaux pratiques des étudiants. Chaque ét
     ou, pour un groupe :  
     ```
     prenom1-nom1_prenom2-nom2
-
+    ```
 ### Structure du dépôt  
 - **Main branch** : La branche principale (`main`) doit rester intacte. **Ne faites aucun commit directement sur cette branche.**  
 - **Branche personnelle** : Chaque élève ou groupe travaillera exclusivement sur sa propre branche.
